@@ -3,6 +3,7 @@ package com.qwon.eat_together.controller;
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.dto.SignUpDto;
 import com.qwon.eat_together.repository.AccountRepository;
+import com.qwon.eat_together.service.AccountService;
 import com.qwon.eat_together.validation.SignUpDtoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class AccountController {
 
     private final SignUpDtoValidator signUpDtoValidator;
     private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
     @InitBinder("signUpDto")// @Valid 검증 전에 실행
     public void signUpDtoInitBinder(WebDataBinder webDataBinder){
@@ -39,15 +41,10 @@ public class AccountController {
             return "account/sign-up";
         }
 
-        Account account=Account.builder()
-                .username(signUpDto.getUsername())
-                .email(signUpDto.getEmail())
-                .password(signUpDto.getPassword())
-                .passwordCheck(signUpDto.getPasswordCheck())
-                .build();
-
-        accountRepository.save(account);
+        Account account = accountService.join(signUpDto);
+        accountService.login(account);
 
         return "redirect:/";
     }
+
 }
