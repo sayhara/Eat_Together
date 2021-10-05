@@ -76,23 +76,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-<script type="application/javascript">
-  (function(){
-    'use strict';
-
-    window.addEventListener('load',function(){
-      var forms=document.getElementsByClassName('needs-validation');
-
-      Array.prototype.filter.call(forms,function(form){
-        form.addEventListener('submit',function(event){
-          if(form.checkValidity()===false){
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated')
-        },false)
-      })
-    },false)
-  }())
-
-</script>
+<script th:replace="fragments.html::validation"></script>
