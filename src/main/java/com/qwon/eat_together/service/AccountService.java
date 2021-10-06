@@ -1,6 +1,7 @@
 package com.qwon.eat_together.service;
 
 import com.qwon.eat_together.config.PasswordConfig;
+import com.qwon.eat_together.config.UserAccount;
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.dto.SignUpDto;
 import com.qwon.eat_together.repository.AccountRepository;
@@ -39,19 +40,20 @@ public class AccountService implements UserDetailsService {
 
     public void login(Account account) {
         UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(
-                account.getUsername(),account.getPassword(),
+                new UserAccount(account),
+                account.getPassword(),
                 List.of(new SimpleGrantedAuthority("ROLE_USER"))); // 권한이 있는 사용자
         SecurityContextHolder.getContext().setAuthentication(token);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Account account=accountRepository.findByEmail(email);
+        Account account=accountRepository.findByUsername(username);
 
         if(account==null){
-            throw new UsernameNotFoundException(email);
+            throw new UsernameNotFoundException(username);
         }
-        return (UserDetails) account;
+        return new UserAccount(account);
     }
 }
