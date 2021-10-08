@@ -3,6 +3,7 @@ package com.qwon.eat_together.service;
 import com.qwon.eat_together.config.PasswordConfig;
 import com.qwon.eat_together.config.UserAccount;
 import com.qwon.eat_together.domain.Account;
+import com.qwon.eat_together.domain.Profile;
 import com.qwon.eat_together.dto.SignUpDto;
 import com.qwon.eat_together.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -55,5 +57,12 @@ public class AccountService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         return new UserAccount(account);
+    }
+
+    public void profileUpdate(Account account, @Valid Profile profile) {
+        account.setBio(profile.getBio());
+        account.setAge(profile.getAge());
+        account.setJob(profile.getJob());
+        account.setLocation(profile.getLocation());
     }
 }

@@ -2,13 +2,10 @@ package com.qwon.eat_together.domain;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Getter @EqualsAndHashCode(of="id")
+@Getter @Setter @EqualsAndHashCode(of="id")
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Account {
 
@@ -24,5 +21,20 @@ public class Account {
     private String password;
 
     private String passwordCheck;
+
+    @Lob @Basic(fetch = FetchType.EAGER)
+    private String profileImage;
+
+    private String bio;
+
+    private String age;
+
+    private String job;
+
+    private String location;
+
+    public String getProfileImage(){
+        return profileImage!= null ? profileImage : "/images/profileImage.jpg";
+    }
 
 }
