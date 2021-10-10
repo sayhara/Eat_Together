@@ -27,7 +27,7 @@ public class Account {
 
     private String bio;
 
-    private String age;
+    private int age;
 
     private String job;
 

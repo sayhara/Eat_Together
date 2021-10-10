@@ -64,5 +64,7 @@ public class AccountService implements UserDetailsService {
         account.setAge(profile.getAge());
         account.setJob(profile.getJob());
         account.setLocation(profile.getLocation());
+        account.setProfileImage(profile.getProfileImage());
+        accountRepository.save(account);
     }
 }

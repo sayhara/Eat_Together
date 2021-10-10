@@ -1,17 +1,19 @@
 package com.qwon.eat_together.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Basic;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
 
 @Data
+@NoArgsConstructor
 public class Profile {
 
     private String bio;
 
-    private String age;
+    private int age;
 
     private String job;
 
