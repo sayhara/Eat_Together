@@ -19,8 +19,7 @@ public class Profile {
 
     private String location;
 
-    @Lob
-    @Basic(fetch = FetchType.EAGER)
+    @Lob @Basic(fetch = FetchType.EAGER)
     private String profileImage;
 
     public Profile(Account account) {

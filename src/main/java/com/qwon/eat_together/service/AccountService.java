@@ -65,6 +65,6 @@ public class AccountService implements UserDetailsService {
         account.setJob(profile.getJob());
         account.setLocation(profile.getLocation());
         account.setProfileImage(profile.getProfileImage());
-        accountRepository.save(account);
+        accountRepository.save(account); // account는 detached 객체 -> merge
     }
 }

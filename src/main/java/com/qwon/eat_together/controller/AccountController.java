@@ -54,12 +54,9 @@ public class AccountController {
         Account findUser = accountRepository.findByUsername(username);
 
         if(findUser.equals(account)){
-            model.addAttribute("isOwner");
+            model.addAttribute("manager");
         }
-
         model.addAttribute("account",findUser);
-        model.addAttribute("isOwner",findUser.equals(account));
-
         return "account/profile";
     }
 
