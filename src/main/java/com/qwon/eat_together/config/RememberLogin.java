@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 // JdbcTokenRepositoryImpl는 persistence_logins 테이블이 필요
 // 아무런 값 설정하지 않으면 Account로부터 생성
 // token을 생성하여 jdbcTokenRepository에 전달
+
 @Table(name="persistent_logins")
 @Entity
 @Getter @Setter

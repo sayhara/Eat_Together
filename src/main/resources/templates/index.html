@@ -6,6 +6,14 @@
 <body>
 <nav th:replace="fragments.html::nav"></nav>
 
+<div style="margin:auto; text-align:center;"><br><br><br>
+    <form style="display:inline-block; height:10px;" th:action="@{/search}" class="form-inline" method="get">
+        <input th:size="50" class="form-control mr-sm-2" name="keyword" type="search"
+               placeholder="주변에 원하는 모임이 있는지 찾아보세요!">
+        <a><i class="fas fa-search"></i></a>
+    </form>
+</div>
+
 <footer>
     <div class="py-5 text-center">
         <img class="mb-2" src="/images/mainLogo.png" alt="200" width="200">

@@ -27,6 +27,6 @@ public class Profile {
         this.age = account.getAge();
         this.job = account.getJob();
         this.location = account.getLocation();
-        this.profileImage = account.getProfileImage();
+        this.profileImage=account.getProfileImage();
     }
 }

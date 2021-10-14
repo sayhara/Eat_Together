@@ -21,40 +21,31 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <form th:action="@{/search}" class="form-inline" method="get">
-          <input th:size="50" class="form-control mr-sm-2" name="keyword" type="search"
-                 placeholder="주변에 원하는 모임이 있는지 찾아보세요!">
-        </form>
-      </li>
-    </ul>
 
+    <ul class="navbar-nav mr-auto"></ul>
     <ul class="navbar-nav justify-content-end">
       <li class="nav-item" sec:authorize="!isAuthenticated()">
         <a class="nav-link" th:href="@{/login}">LOGIN</a></li>
       <li class="nav-item" sec:authorize="!isAuthenticated()">
         <a class="nav-link" th:href="@{/sign-up}">JOIN</a></li>
-
-      <li class="nav-item" sec:authorize="isAuthenticated()">
-        <a class="nav-link" th:href="@{/notifications}">
-          <i class="fas fa-bullhorn" aria-hidden="true"></i></a></li>
-      <li class="nav-item" sec:authorize="isAuthenticated()">
-        <a class="nav-link btn-outline-primary" th:href="@{/meeting}">
-          <i class="fas fa-plus" aria-hidden="true"></i></a></li>
+      <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+      <a class="nav-link btn-outline-primary" th:href="@{/meeting}">
+        <i class="fas fa-plus" aria-hidden="true"></i></a></li>
       <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          프로필
+          <img th:if="${!#strings.isEmpty(account?.profileImage)}" th:src="${account.profileImage}"
+               width="24" height="24" class="rounded border">
         </a>
         <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
           <h6 class="dropdown-header">
             <span sec:authentication="name">Username</span>
           </h6>
           <a class="dropdown-item"
-             th:href="@{${#authentication.name}+'/profile/'}">프로필</a>
+             th:href="@{${#authentication.name}+'/profile/'}">
+          </a>
           <a class="dropdown-item">스터디</a>
-          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" th:href="@{/notifications}">알림</a>
           <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
           <form class="form-inline my-2 my-lg-0" action="#"
                 th:action="@{/logout}" method="post">
@@ -62,6 +53,7 @@
           </form>
         </div>
       </li>
+
     </ul>
   </div>
 </nav>
