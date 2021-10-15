@@ -4,6 +4,7 @@ import com.qwon.eat_together.dto.SignUpDto;
 import com.qwon.eat_together.repository.AccountRepository;
 import com.qwon.eat_together.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -13,7 +14,6 @@ import org.springframework.validation.Validator;
 public class SignUpDtoValidator implements Validator {
 
     private final AccountRepository accountRepository;
-    private final AccountService accountService;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -33,6 +33,11 @@ public class SignUpDtoValidator implements Validator {
         if(accountRepository.existsByEmail(signUpDto.getEmail())) {
             errors.rejectValue("email", "invalid email",
                     "이미 사용중인 이메일입니다.");
+        }
+
+        if(!signUpDto.getPasswordCheck().equals(signUpDto.getPasswordCheck())){
+            errors.rejectValue("password","invalid password",
+                    "패스워드가 일치하지 않습니다.");
         }
     }
 }

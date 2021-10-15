@@ -38,6 +38,7 @@ public class AccountController {
 
     @PostMapping("/sign-up")
     public String signUpSubmit(@Validated SignUpDto signUpDto, Errors errors){
+        
 
         if(errors.hasErrors()){
             return "account/sign-up";

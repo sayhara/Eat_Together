@@ -3,13 +3,17 @@ package com.qwon.eat_together.controller;
 import com.qwon.eat_together.config.AuthUser;
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Profile;
+import com.qwon.eat_together.dto.PasswordDto;
 import com.qwon.eat_together.repository.AccountRepository;
 import com.qwon.eat_together.service.AccountService;
+import com.qwon.eat_together.validation.PasswordDtoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,6 +25,12 @@ import javax.validation.Valid;
 public class ProfileController {
 
     private final AccountService accountService;
+    private final PasswordDtoValidator passwordDtoValidator;
+
+    @InitBinder("passwordDto") // 검증할 장소
+    public void initBinder(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(passwordDtoValidator);
+    }
 
     @GetMapping("/settings/profile")
     public String SettingsProfile(@AuthUser Account account, Model model){
@@ -43,4 +53,27 @@ public class ProfileController {
         attributes.addFlashAttribute("message","프로필을 수정했습니다.");
         return "redirect:/settings/profile";
     }
+
+    @GetMapping("/settings/password")
+    public String SettingsPassword(@AuthUser Account account, Model model){
+        model.addAttribute(account);
+        model.addAttribute(new PasswordDto());
+        return "settings/password";
+    }
+
+    @PostMapping("/settings/password")
+    public String updatePassword(@AuthUser Account account, Model model, @Valid PasswordDto passwordDto,
+                                 Errors errors, RedirectAttributes attributes){
+
+        if(errors.hasErrors()){
+            model.addAttribute(account);
+            return "settings/password";
+        }
+
+        model.addAttribute(account);
+        accountService.passwordUpdate(account,passwordDto);
+        attributes.addFlashAttribute("message","패스워드를 수정했습니다.");
+        return "redirect:/settings/password";
+    }
+
 }

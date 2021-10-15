@@ -4,6 +4,7 @@ import com.qwon.eat_together.config.PasswordConfig;
 import com.qwon.eat_together.config.UserAccount;
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Profile;
+import com.qwon.eat_together.dto.PasswordDto;
 import com.qwon.eat_together.dto.SignUpDto;
 import com.qwon.eat_together.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -66,5 +67,11 @@ public class AccountService implements UserDetailsService {
         account.setLocation(profile.getLocation());
         account.setProfileImage(profile.getProfileImage());
         accountRepository.save(account); // account는 detached 객체 -> merge
+    }
+
+    public void passwordUpdate(Account account, @Valid PasswordDto passwordDto){
+        account.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
+        account.setPasswordCheck(passwordEncoder.encode(passwordDto.getPasswordCheck()));
+        accountRepository.save(account);
     }
 }
