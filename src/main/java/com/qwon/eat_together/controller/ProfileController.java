@@ -2,9 +2,8 @@ package com.qwon.eat_together.controller;
 
 import com.qwon.eat_together.config.AuthUser;
 import com.qwon.eat_together.domain.Account;
-import com.qwon.eat_together.domain.Profile;
+import com.qwon.eat_together.dto.Profile;
 import com.qwon.eat_together.dto.PasswordDto;
-import com.qwon.eat_together.repository.AccountRepository;
 import com.qwon.eat_together.service.AccountService;
 import com.qwon.eat_together.validation.PasswordDtoValidator;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 

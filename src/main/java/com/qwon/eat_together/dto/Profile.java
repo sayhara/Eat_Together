@@ -1,7 +1,9 @@
-package com.qwon.eat_together.domain;
+package com.qwon.eat_together.dto;
 
+import com.qwon.eat_together.domain.Account;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Basic;
 import javax.persistence.FetchType;
@@ -11,6 +13,7 @@ import javax.persistence.Lob;
 @NoArgsConstructor
 public class Profile {
 
+    @Length(max=30)
     private String bio;
 
     private int age;

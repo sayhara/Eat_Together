@@ -22,9 +22,9 @@
             <label for="bio">한 줄 소개</label>
             <input id="bio" type="text" th:field="*{bio}"
                    class="form-control" placeholder="간략한 소개를 부탁합니다." aria-describedby="bioHelp" required>
-            <small id="bioHelp" class="form-text text-muted"> 50자 이내로 입력하세요. </small>
+            <small id="bioHelp" class="form-text text-muted"> 30자 이내로 입력하세요. </small>
             <small class="form-text text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}">
-              50자 이내로 입력하세요. </small>
+              30자 이내로 입력하세요. </small>
           </div>
 
           <div class="form-group">

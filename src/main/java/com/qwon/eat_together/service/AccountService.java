@@ -1,9 +1,8 @@
 package com.qwon.eat_together.service;
 
-import com.qwon.eat_together.config.PasswordConfig;
 import com.qwon.eat_together.config.UserAccount;
 import com.qwon.eat_together.domain.Account;
-import com.qwon.eat_together.domain.Profile;
+import com.qwon.eat_together.dto.Profile;
 import com.qwon.eat_together.dto.PasswordDto;
 import com.qwon.eat_together.dto.SignUpDto;
 import com.qwon.eat_together.repository.AccountRepository;
