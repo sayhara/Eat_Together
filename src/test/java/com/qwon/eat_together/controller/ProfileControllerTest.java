@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,6 +36,9 @@ class ProfileControllerTest {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @BeforeEach
     public void beforeEach(){
@@ -85,6 +89,46 @@ class ProfileControllerTest {
 
         Account gyuwon = accountRepository.findByUsername("gyuwon");
         assertNull(gyuwon.getBio());
+    }
+
+    @WithUserDetails(value = "gyuwon", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @DisplayName("passwordUpdate Test - input success")
+    @Test
+    public void updatePassword_ok() throws Exception{
+
+        String newPassword="12345678";
+        String newPasswordRepeat="12345678";
+
+        mockMvc.perform(post("/settings/password")
+                .param("password",newPassword)
+                .param("passwordCheck",newPasswordRepeat)
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection()) // 상태값은 완료되면 redirect
+                .andExpect(redirectedUrl("/settings/password"))
+                .andExpect(flash().attributeExists("message"));
+
+        Account gyuwon = accountRepository.findByUsername("gyuwon");
+        assertTrue(passwordEncoder.matches(newPassword,gyuwon.getPassword()));
+
+    }
+
+    @WithUserDetails(value = "gyuwon", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @DisplayName("passwordUpdate Test - input error")
+    @Test
+    public void updatePassword_error() throws Exception{
+
+        String newPassword="12345678";
+        String newPasswordRepeat="87654321";
+
+        mockMvc.perform(post("/settings/password")
+                .param("password",newPassword)
+                .param("passwordCheck",newPasswordRepeat)
+                .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("settings/password"))
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("passwordDto"))
+                .andExpect(model().hasErrors());
     }
 
 }
