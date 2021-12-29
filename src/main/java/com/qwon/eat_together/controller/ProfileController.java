@@ -2,6 +2,7 @@ package com.qwon.eat_together.controller;
 
 import com.qwon.eat_together.config.AuthUser;
 import com.qwon.eat_together.domain.Account;
+import com.qwon.eat_together.dto.AlarmDto;
 import com.qwon.eat_together.dto.Profile;
 import com.qwon.eat_together.dto.PasswordDto;
 import com.qwon.eat_together.service.AccountService;
@@ -72,6 +73,25 @@ public class ProfileController {
         accountService.passwordUpdate(account,passwordDto);
         attributes.addFlashAttribute("message","패스워드를 수정했습니다.");
         return "redirect:/settings/password";
+    }
+
+    @GetMapping("/settings/alarms")
+    public String SettingsAlarms(@AuthUser Account account, Model model){
+        model.addAttribute(account);
+        model.addAttribute(new AlarmDto(account));
+        return "settings/alarms";
+    }
+
+    @PostMapping("/settings/alarms")
+    public String updateAlarms(@AuthUser Account account, @Valid AlarmDto alarmDto, Errors errors,
+                                     Model model, RedirectAttributes attributes){
+        if (errors.hasErrors()) {
+            model.addAttribute(account);
+            return "settings/alarms";
+        }
+        accountService.updateAlarm(account,alarmDto);
+        attributes.addFlashAttribute("message","알림 설정을 업데이트 했습니다.");
+        return "redirect:/settings/alarms";
     }
 
 }

@@ -33,6 +33,12 @@ public class Account {
 
     private String location;
 
+    private boolean created;
+
+    private boolean result;
+
+    private boolean update;
+
 
     public String getProfileImage(){
         return profileImage!= null ? profileImage : "/images/profileImage.jpg";
