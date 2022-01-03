@@ -3,10 +3,12 @@ package com.qwon.eat_together.controller;
 import com.qwon.eat_together.config.AuthUser;
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.dto.AlarmDto;
+import com.qwon.eat_together.dto.UsernameDto;
 import com.qwon.eat_together.dto.Profile;
 import com.qwon.eat_together.dto.PasswordDto;
 import com.qwon.eat_together.service.AccountService;
 import com.qwon.eat_together.validation.PasswordDtoValidator;
+import com.qwon.eat_together.validation.UsernameDtoValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +27,16 @@ public class ProfileController {
 
     private final AccountService accountService;
     private final PasswordDtoValidator passwordDtoValidator;
+    private final UsernameDtoValidator usernameDtoValidator;
 
     @InitBinder("passwordDto") // 검증할 장소
-    public void initBinder(WebDataBinder webDataBinder){
+    public void passwordDtoInitBinder(WebDataBinder webDataBinder){
         webDataBinder.addValidators(passwordDtoValidator);
+    }
+
+    @InitBinder("nicknameDto")
+    public void nicknameDtoInitBinder(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(usernameDtoValidator);
     }
 
     @GetMapping("/settings/profile")
@@ -92,6 +100,26 @@ public class ProfileController {
         accountService.updateAlarm(account,alarmDto);
         attributes.addFlashAttribute("message","알림 설정을 업데이트 했습니다.");
         return "redirect:/settings/alarms";
+    }
+
+    @GetMapping("/settings/username")
+    public String SettingsUsername(@AuthUser Account account, Model model){
+        model.addAttribute(account);
+        model.addAttribute(new UsernameDto());
+        return "settings/username";
+    }
+
+    @PostMapping("/settings/username")
+    public String updateUsername(@AuthUser Account account, @Valid UsernameDto usernameDto, Errors errors,
+                                 Model model, RedirectAttributes attributes){
+        if(errors.hasErrors()){
+            model.addAttribute(account);
+            return "settings/username";
+        }
+
+        accountService.updateUsername(account,usernameDto);
+        attributes.addFlashAttribute("message","닉네임을 수정했습니다.");
+        return "redirect:/settings/username";
     }
 
 }

@@ -42,7 +42,7 @@
             <small id="passwordHelp" class="form-text text-muted">
               비밀번호는 8자 이상 20자 이내로 입력하세요.
             </small>
-            <small class="invalid-feedback">패스워드를 입력하세요.</small>
+            <small class="invalid-feedback">패스워드의 길이를 준수하여 입력해주세요.</small>
             <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</small>
           </div>
 
@@ -51,7 +51,7 @@
             <input id="password_check" type="password" th:field="*{passwordCheck}" class="form-control"
                    aria-describedby="password_checkHelp" required minlength="8" maxlength="20">
           <small id="password_checkHelp" class="form-text text-muted">
-            비밀번호가 서로 일치하는지 확인하세요.
+            비밀번호를 서로 일치하게 입력해주세요.
           </small>
           <small class="invalid-feedback">패스워드 재입력하세요.</small>
           <small class="form-text text-danger" th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">PasswordCheck Error</small>

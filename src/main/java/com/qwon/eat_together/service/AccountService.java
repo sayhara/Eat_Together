@@ -2,10 +2,7 @@ package com.qwon.eat_together.service;
 
 import com.qwon.eat_together.config.UserAccount;
 import com.qwon.eat_together.domain.Account;
-import com.qwon.eat_together.dto.AlarmDto;
-import com.qwon.eat_together.dto.Profile;
-import com.qwon.eat_together.dto.PasswordDto;
-import com.qwon.eat_together.dto.SignUpDto;
+import com.qwon.eat_together.dto.*;
 import com.qwon.eat_together.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -85,6 +82,11 @@ public class AccountService implements UserDetailsService {
 //        account.setCreated(alarmDto.isCreated());
 //        account.setResult(alarmDto.isResult());
 //        account.setUpdate(alarmDto.isUpdate());
+        accountRepository.save(account);
+    }
+
+    public void updateUsername(Account account, UsernameDto usernameDto) {
+        modelMapper.map(usernameDto,account);
         accountRepository.save(account);
     }
 }

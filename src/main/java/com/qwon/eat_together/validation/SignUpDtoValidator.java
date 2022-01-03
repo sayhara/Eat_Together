@@ -35,7 +35,7 @@ public class SignUpDtoValidator implements Validator {
                     "이미 사용중인 이메일입니다.");
         }
 
-        if(!signUpDto.getPasswordCheck().equals(signUpDto.getPasswordCheck())){
+        if(!signUpDto.getPassword().equals(signUpDto.getPasswordCheck())){
             errors.rejectValue("password","invalid password",
                     "패스워드가 일치하지 않습니다.");
         }

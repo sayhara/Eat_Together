@@ -39,7 +39,6 @@ public class Account {
 
     private boolean update;
 
-
     public String getProfileImage(){
         return profileImage!= null ? profileImage : "/images/profileImage.jpg";
     }
