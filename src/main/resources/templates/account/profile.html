@@ -1,128 +1,87 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:text-align="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments.html::head"></head>
 <style>
 </style>
 <body>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="/" th:href="@{/}">
-        <img src="/images/logo.png" width="40" height="40">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div th:replace="fragments.html :: nav"></div>
+<!-- https://bootsnipp.com/snippets/M48pA -->
+<link th:href="@{/css/profile.css} " rel="stylesheet"/>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <h3 style="color: white" th:text="내정보"></h3>
-            </li>
-        </ul>
-
-        <ul class="navbar-nav justify-content-end">
-            <li class="nav-item" sec:authorize="!isAuthenticated()">
-                <a class="nav-link" th:href="@{/login}">LOGIN</a></li>
-            <li class="nav-item" sec:authorize="!isAuthenticated()">
-                <a class="nav-link" th:href="@{/sign-up}">JOIN</a></li>
-
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" th:href="@{/alarms}">
-                    <i class="fas fa-bullhorn" aria-hidden="true"></i></a></li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link btn-outline-primary" th:href="@{/meeting}">
-                    <i class="fas fa-plus" aria-hidden="true"></i></a></li>
-            <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
-                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    프로필
-                </a>
-                <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
-                    <h6 class="dropdown-header">
-                        <span sec:authentication="name">Username</span>
-                    </h6>
-                    <a class="dropdown-item"
-                       th:href="@{${#authentication.name}+'/profile/'}">프로필</a>
-                    <a class="dropdown-item">그룹</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
-                    <form class="form-inline my-2 my-lg-0" action="#"
-                          th:action="@{/logout}" method="post">
-                        <button class="dropdown-item" type="submit">로그아웃</button>
-                    </form>
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    <svg th:if="${#strings.isEmpty(account.profileImage)}"
+                         class="img-fluid float-left rounded img-thumbnail"
+                         th:data-jdenticon-value="${account.username}" width="125" height="125"></svg>
+                    <img th:if="${!#strings.isEmpty(account.profileImage)}"
+                         class="img-fluid float-left rounded img-thumbnail"
+                         th:src="${account.profileImage}" width="125" height="125"></img>
                 </div>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div id="container">
-    <div class="row mt-5 justify-content-center">
-        <div class="col-2">
-            <!-- Avatar 22장 참고-->
-            <svg th:if="${#strings.isEmpty(account.profileImage)}" class="img-fluid float-left rounded img-thumbnail"
-                 th:data-jdenticon-value="${account.username}" width="125" height="125"></svg>
-            <img th:if="${!#strings.isEmpty(account.profileImage)}" class="img-fluid float-left rounded img-thumbnail"
-                 th:src="${account.profileImage}" width="125" height="125"></img>
-        </div>
-        <div class="col-8">
-            <h1 class="display-4" th:text="${account.username}"></h1>
-        </div>
-    </div>
-
-    <div class="row mt-3 justify-content-center">
-        <div class="col-2">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
-                   data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
-                   aria-selected="true">소개</a>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        <h3 class="display-4" th:text="${account.username}"></h3>
+                    </div>
+                </div>
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu" text-align="center">
+                    <ul class="nav">
+                        <li class="active">
+                            &nbsp; &nbsp;&nbsp;&nbsp; <a href="#"> Overview </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                        </li>
+                        <li>
+                            <a th:href="@{/settings/profile}"> Account Settings </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
             </div>
         </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                         aria-labelledby="v-pills-profile-tab">
 
-        <div class="col-8">
-            <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    <p class="lead" th:if="${!#strings.isEmpty(account.bio)}"
-                       th:text="${account.bio}">bio
-                    </p>
+                        <p class="lead" th:if="${#strings.isEmpty(account.bio)}">
+                            <span style="font-size:20px;">소개</span>
+                            <span th:text="${account.bio}" class="col-9">한 줄 소개를 추가하세요.</span>
+                        </p>
 
-                    <p class="lead" th:if="${#strings.isEmpty(account.bio)}">
-                        <span style="">
-                                <i class="fas fa-bullhorn"></i>
-                            </span>
-                        <span class="col-9">한 줄 소개를 추가하세요.</span>
-                    </p>
+                        <p th:if="${!#strings.isEmpty(account.age)}">
+                            <span style="font-size:20px;">나이</span>
+                            <span th:text="${account.age}" class="col-9">나이를 입력해주세요.</span>
+                        </p>
+                        <p th:if="${!#strings.isEmpty(account.job)}">
+                            <span style="font-size:20px;">직업</span>
+                            <span th:text="${account.job}" class="col-9"></span>
+                        </p>
+                        <p th:if="${!#strings.isEmpty(account.location)}">
+                            <span style="font-size:20px;">사는 곳</span>
+                            <span th:text="${account.location}" class="col-9">사는 곳을 기입해주세요.</span>
+                        </p>
+                        <p th:if="${!#strings.isEmpty(account.email)}">
+                            <span style="font-size:20px;">이메일</span>
+                            <span th:text="${account.email}" class="col-9"></span>
+                        </p><br><br>
 
-                    <p th:if="${!#strings.isEmpty(account.age)}">
-                            <span style="">
-                                <i class="fab fa-pagelines"></i>
-                            </span>
-                        <span th:text="${account.age}" class="col-11"></span>
-                    </p>
-                    <p th:if="${!#strings.isEmpty(account.job)}">
-                            <span style="">
-                                <i class="fas fa-user-md"></i>
-                            </span>
-                        <span th:text="${account.job}" class="col-9"></span>
-                    </p>
-                    <p th:if="${!#strings.isEmpty(account.location)}">
-                            <span style="">
-                                <i class="fas fa-street-view"></i>
-                            </span>
-                        <span th:text="${account.location}" class="col-9"></span>
-                    </p>
-                    <p>
-                        <span style="font-size:20px;">
-                                <i class="fas fa-envelope-open"></i>
-                            </span>
-                        <span th:text="${account.email}" class="col-9"></span>
-                    </p><br>
-                    <div>
-                        <a class="btn btn-outline-primary" href="#" th:href="@{/settings/profile}">프로필 수정</a>
+                        <div class="modify-tab">
+                            <a class="btn btn-outline-primary" href="#" th:href="@{/settings/profile}">수정하기</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
+    </div>
 </div>
+<div text-align="center">
+    <strong>Powered by <a href="https://github.com/sayhara" target="_blank">sayhara</a></strong>
+</div>
+<br>
+<br>
