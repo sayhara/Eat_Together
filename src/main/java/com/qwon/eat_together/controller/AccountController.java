@@ -49,7 +49,7 @@ public class AccountController {
         return "redirect:/";
     }
 
-    @GetMapping("/{username}/profile")
+    @GetMapping("/profile/{username}")
     public String profilePage(@PathVariable String username, Model model, @AuthUser Account account){
         Account findUser = accountRepository.findByUsername(username);
 

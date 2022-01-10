@@ -13,11 +13,12 @@
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
 </head>
+<link th:href="@{/css/footer.css} " rel="stylesheet"/>
 
 <body>
 <nav th:fragment="nav" class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="/" th:href="@{/}">
-        <img src="/images/logo.png" width="40" height="40">
+        <img src="/images/logo.png" width="60" height="45">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent">
@@ -47,7 +48,7 @@
                     <h6 class="dropdown-header">
                         <span sec:authentication="name">Username</span>
                     </h6>
-                    <a class="dropdown-item" th:href="@{${#authentication.name}+'/profile/'}">프로필</a>
+                    <a class="dropdown-item" th:href="@{'/profile/'+${#authentication.name}}">프로필</a>
                     <a class="dropdown-item" th:href="@{/meeting}">모임</a>
                     <a class="dropdown-item" th:href="@{/alarms}">알림</a>
                     <a class="dropdown-item" th:href="@{'/settings/profile'}">설정</a>
@@ -74,6 +75,25 @@ active" href="#" th:href="@{/settings/tags}">관심 주제</a>
 active" href="#" th:href="@{/settings/zones}">활동 지역</a>
     <a class="list-group-item list-group-item-light" th:classappend="${currentMenu=='username'}?
 active" href="#" th:href="@{/settings/username}">계정</a>
+</div>
+
+<div th:fragment="footer">
+    <link th:href="@{/css/footer.css} " rel="stylesheet"/>
+    <div class="footer">
+        <footer class="bg-dark text-center text-white">
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/sayhara" role="button">
+                    <i class="fab fa-github"></i></a> <br>
+            </div>
+            <!-- Copyright -->
+        </footer>
+
+        <div class="Copyright">
+            <div class="bg-dark text-center text-white" style="background-color:gray;">
+                © 2022 Copyright : sayhara
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

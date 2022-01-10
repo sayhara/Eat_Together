@@ -5,6 +5,7 @@
 <body>
 <nav th:replace="fragments.html::nav"></nav>
 
+
 <div style="margin:auto; text-align:center;"><br><br><br>
     <form style="display:inline-block; height:10px;" th:action="@{/search}" class="form-inline" method="get">
         <input th:size="50" class="form-control mr-sm-2" name="keyword" type="search"
@@ -19,3 +20,5 @@
         <small class="d-block mb-3 text-muted"></small>
     </div>
 </footer>
+
+<div th:replace="fragments.html::footer"></div>
