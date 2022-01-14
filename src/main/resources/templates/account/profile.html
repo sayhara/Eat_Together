@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:text-align="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments.html::head"></head>
+<head th:replace="fragment.html::head"></head>
 <style>
 </style>
 <body>
-<div th:replace="fragments.html :: nav"></div>
+<div th:replace="fragment.html :: nav"></div>
 <!-- https://bootsnipp.com/snippets/M48pA -->
 <link th:href="@{/css/profile.css} " rel="stylesheet"/>
 
@@ -19,7 +19,7 @@
                          th:data-jdenticon-value="${account.username}" width="125" height="125"></svg>
                     <img th:if="${!#strings.isEmpty(account.profileImage)}"
                          class="img-fluid float-left rounded img-thumbnail"
-                         th:src="${account.profileImage}" width="125" height="125"></img>
+                         th:src="${account.profileImage}" width="125" height="125">
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
@@ -80,6 +80,6 @@
         </div>
     </div>
 </div>
-<div th:replace="fragments.html :: footer"></div>
+<div th:replace="fragment.html :: footer"></div>
 <br>
 <br>

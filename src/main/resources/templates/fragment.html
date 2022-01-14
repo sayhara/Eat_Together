@@ -13,9 +13,7 @@
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
 </head>
-<link th:href="@{/css/footer.css} " rel="stylesheet"/>
 
-<body>
 <nav th:fragment="nav" class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="/" th:href="@{/}">
         <img src="/images/logo.png" width="60" height="45">
@@ -95,6 +93,26 @@ active" href="#" th:href="@{/settings/username}">계정</a>
         </div>
     </div>
 </div>
+
+<script type="application/javascript" th:fragment="validation">
+    (function(){
+        'use strict';
+
+        window.addEventListener('load',function(){
+            var forms=document.getElementsByClassName('needs-validation');
+
+            Array.prototype.filter.call(forms,function(form){
+                form.addEventListener('submit',function(event){
+                    if(form.checkValidity()===false){
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated')
+                },false)
+            })
+        },false)
+    }())
+</script>
 
 </body>
 </html>

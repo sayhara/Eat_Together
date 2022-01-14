@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments.html::head"></head>
+<head th:replace="fragment.html::head"></head>
 
 <body>
-<nav th:replace="fragments.html::nav"></nav>
+<nav th:replace="fragment.html::nav"></nav>
 
 <div class="container">
     <div class="row justify-content-center">
         <form class="needs-validation col-sm-7"
-              th:action="@{/sign-up}" th:object="${signUpDto} " method="post" novalidate>
+              th:action="@{/sign-up}" th:object="${signUpDto}" method="post" novalidate>
             <div class="text-center"><br><br><br>
                 <h2>회원가입</h2>
             </div>
@@ -83,5 +83,5 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 
-<script type="text/javascript" th:src="@{/js/validation.js}"></script>
-<div th:replace="fragments.html :: footer"></div>
+<div th:replace="fragment.html :: footer"></div>
+<script th:replace="fragment.html::validation"></script>
