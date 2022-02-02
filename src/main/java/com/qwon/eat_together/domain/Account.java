@@ -1,7 +1,6 @@
 package com.qwon.eat_together.domain;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +8,8 @@ import javax.persistence.*;
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Account {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    // H2 : SEQUENCE, MySQL : IDENTITY
     private Long id;
 
     @Column(unique = true)
@@ -37,6 +37,7 @@ public class Account {
 
     private boolean result;
 
+    @Column(name="update_thing")
     private boolean update;
 
     public String getProfileImage(){
