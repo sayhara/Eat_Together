@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment.html :: head"></head>
+
+<body class="bg-light">
+<div th:replace="fragment.html :: nav"></div>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>모임 만들기</h2>
+    </div>
+    <div class="row justify-content-center">
+        <form class="needs-validation col-sm-10" action="#"
+              th:action="@{/meeting}" th:object="${meetingForm}" method="post" novalidate>
+            <div class="form-group">
+                <label for="url">URL</label>
+                <input id="url" type="text" th:field="*{url}" class="form-control"
+                       placeholder="springBoot/meeting" aria-describedby="urlHelp" required min="5" max="50">
+                <small id="pathHelp" class="form-text text-muted">
+                    모임 주소를 지정할 URL을 5자 이상 50자 이내로 입력하세요.
+                </small>
+                <small class="invalid-feedback">모임 URL을 입력하세요.</small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}">URL
+                    Error</small>
+            </div>
+
+            <div class="form-group">
+                <label for="title">모임 이름</label>
+                <input id="title" type="text" th:field="*{title}" class="form-control"
+                       placeholder="모임 이름" aria-describedby="titleHelp" required>
+                <small id="titleHelp" class="form-text text-muted">
+                    모임 이름을 입력하세요.
+                </small>
+                <small class="invalid-feedback">모임 이름을 입력하세요.</small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title
+                    Error</small>
+            </div>
+
+            <div class="form-group">
+                <label for="short_message">간단한 소개</label>
+                <textarea id="short_message" type="textarea" th:field="*{short_message}" class="form-control"
+                          placeholder="모임을 간단하게 소개해 주세요." aria-describedby="short_messageHelp"></textarea>
+                <small id="short_messageHelp" class="form-text text-muted">
+                    모임에 대한 간단한 소개를 해주세요.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="long_message">상세 설명</label>
+                <textarea id="long_message" type="textarea" th:field="*{long_message}" class="form-control"
+                          placeholder="모임을 상세히 설명해 주세요." aria-describedby="long_messageHelp"></textarea>
+                <small id="fullDescriptionHelp" class="form-text text-muted">
+                    모임에 대한 상세 설명을 입력해 주세요.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit"
+                        aria-describedby="submitHelp">모임 만들기
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div th:replace="fragment.html :: footer"></div>
+    <div th:replace="fragment.html :: summernote"></div>
+
+</div>

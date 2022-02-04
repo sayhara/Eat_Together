@@ -10,10 +10,12 @@ spring:
     url: jdbc:mysql://localhost:3306/eat_together?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=true
     username: eattogether
     password: 1234
+
   jpa:
     database: mysql
     show-sql: true
-    hibernate: ddl-auto=update
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
