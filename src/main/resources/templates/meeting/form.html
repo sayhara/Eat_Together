@@ -11,7 +11,7 @@
     </div>
     <div class="row justify-content-center">
         <form class="needs-validation col-sm-10" action="#"
-              th:action="@{/meeting}" th:object="${meetingForm}" method="post" novalidate>
+              th:action="@{/meeting}" th:object="${meetingDto}" method="post" novalidate>
             <div class="form-group">
                 <label for="url">URL</label>
                 <input id="url" type="text" th:field="*{url}" class="form-control"
@@ -59,11 +59,8 @@
                         aria-describedby="submitHelp">모임 만들기
                 </button>
             </div>
-
         </form>
     </div>
-
-    <div th:replace="fragment.html :: footer"></div>
-    <div th:replace="fragment.html :: summernote"></div>
-
 </div>
+<script th:replace="fragment.html :: summernote"></script>
+
