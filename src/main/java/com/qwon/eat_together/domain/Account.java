@@ -40,6 +40,9 @@ public class Account {
     @Column(name="update_thing")
     private boolean update;
 
+    @OneToOne(mappedBy = "manager")
+    private Meeting meeting;
+
     public String getProfileImage(){
         return profileImage!= null ? profileImage : "/images/profileImage.jpg";
     }

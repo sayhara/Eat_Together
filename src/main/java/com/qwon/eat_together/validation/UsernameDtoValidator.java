@@ -24,7 +24,7 @@ public class UsernameDtoValidator implements Validator {
 
         UsernameDto usernameDto= (UsernameDto) target;
         if(accountRepository.existsByUsername(usernameDto.getUsername())){
-            errors.rejectValue("username","invalid username",
+            errors.rejectValue("username","duplicate username",
                     "이미 사용중인 닉네임입니다.");
         }
     }

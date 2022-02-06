@@ -26,12 +26,12 @@ public class SignUpDtoValidator implements Validator {
         SignUpDto signUpDto=(SignUpDto)target;
 
         if(accountRepository.existsByUsername(signUpDto.getUsername())){
-            errors.rejectValue("username","invalid username",
+            errors.rejectValue("username","duplicate username",
                     "이미 사용중인 아이디입니다.");
         }
 
         if(accountRepository.existsByEmail(signUpDto.getEmail())) {
-            errors.rejectValue("email", "invalid email",
+            errors.rejectValue("email", "duplicate email",
                     "이미 사용중인 이메일입니다.");
         }
 

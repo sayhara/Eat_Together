@@ -2,18 +2,50 @@ package com.qwon.eat_together.controller;
 
 import com.qwon.eat_together.config.AuthUser;
 import com.qwon.eat_together.domain.Account;
+import com.qwon.eat_together.domain.Meeting;
 import com.qwon.eat_together.dto.MeetingDto;
+import com.qwon.eat_together.service.MeetingService;
+import com.qwon.eat_together.validation.MeetingDtoValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
+@RequiredArgsConstructor
 public class MeetingController {
+
+    private final MeetingService meetingService;
+    private final MeetingDtoValidator meetingDtoValidator;
+
+    @InitBinder("meetingDto")
+    public void meetingDtoInitBinder(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(meetingDtoValidator);
+    }
 
     @GetMapping("/meeting")
     public String newMeeting(@AuthUser Account account, Model model){
         model.addAttribute(account);
         model.addAttribute(new MeetingDto());
         return "meeting/form";
+    }
+
+    @PostMapping("/meeting")
+    public String newMeetingSubmit(@AuthUser Account account, @Valid MeetingDto meetingDto,
+                                   Meeting meeting, Errors errors, Model model){
+
+        if(errors.hasErrors()){
+            model.addAttribute(account);
+            return "meeting/form";
+        }
+
+        Meeting newMeeting = meetingService.createMeeting(meetingDto, meeting, account);
+        return "redirect:/meeting/"+newMeeting.getUrl();
     }
 }
