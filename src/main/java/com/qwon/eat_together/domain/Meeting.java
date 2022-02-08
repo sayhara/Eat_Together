@@ -1,5 +1,6 @@
 package com.qwon.eat_together.domain;
 
+import com.qwon.eat_together.config.UserAccount;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,10 +46,24 @@ public class Meeting {
 
     private boolean closed;
 
-    private boolean banner;
+    private boolean useBanner;
 
     public void setManager(Account manager) {
         this.manager=manager;
         manager.setMeeting(this);
+    }
+
+    public boolean isJoinable(UserAccount userAccount){
+        Account account = userAccount.getAccount();
+        return recruiting && this.published
+                && !members.contains(account) && !manager.equals(account);
+    }
+
+    public boolean isMember(UserAccount userAccount){
+        return members.contains(userAccount.getAccount());
+    }
+
+    public boolean isManager(UserAccount userAccount){
+        return manager.equals(userAccount);
     }
 }

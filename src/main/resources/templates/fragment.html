@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <link href="/data/201301/IJ13576404449968/tabNavStyle.css" rel="stylesheet" type="text/css" />
     <script src="https://kit.fontawesome.com/9b5e2918ba.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
@@ -83,7 +84,7 @@ active" href="#" th:href="@{/settings/username}">계정</a>
         <footer class="bg-dark text-center text-white">
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/sayhara" role="button">
-                    <i class="fab fa-github"></i></a> <br>
+                    <i class="fab fa-github"></i></a><br>
             </div>
             <!-- Copyright -->
             <div class="Copyright">
@@ -94,6 +95,86 @@ active" href="#" th:href="@{/settings/username}">계정</a>
         </footer>
     </div>
 </div>
+
+<div th:fragment="meeting-banner" th:if="${meeting.useBanner}" class="row" id="meeting-logo">
+    <img th:src="${meeting.image}"/>
+</div>
+
+<div th:fragment="meeting-info">
+    <div class="row pt-4 text-left justify-content-center bg-light">
+        <div class="col-6">
+            <a href="#" class="text-decoration-none" th:href="@{'/meeting/'+${meeting.url}}">
+                <span class="h2" th:text="${meeting.title}">모임 이름</span>
+                <p class="lead" th:text="${meeting.short_message}"></p>
+            </a>
+        </div>
+
+        <div class="col-4 text-right justify-content-end">
+                <span th:if="${!meeting.published}"
+                      class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"
+                      title="모임 공개 준비중">
+                    <button class="btn btn-primary btn-sm" style="pointer-events:none;" type="button"
+                            disabled>DRAFT</button>
+                </span>
+            <span th:if="${meeting.closed}"
+                  class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"
+                  title="모임 종료함">
+                    <button class="btn btn-primary btn-sm" style="pointer-events:none;" type="button"
+                            disabled>CLOSED</button>
+                </span>
+            <span th:if="${!meeting.recruiting}"
+                  class="d-inline-block ml-1" tabindex="0" data-toggle="tooltip" data-placement="bottom"
+                  title="팀원 모집중 아님">
+                    <button class="btn btn-primary btn-sm" style="pointer-events:none;" type="button"
+                            disabled>OFF</button>
+                </span>
+
+            <span sec:authorize="isAuthenticated()" th:if="${meeting.isJoinable(#authentication.principal)}"
+                  class="btn-group" role="group" aria-label="Basic example">
+                <a class="btn btn-primary" th:href="@{'/meeting/'+${meeting.url}+'/join'}">
+                    모임 가입
+                </a>
+                <a class="btn btn-outline-primary" th:href="@{'/meeting/'+${meeting.url}+'/members'}"
+                   th:text="${meeting.members.size()}">1</a>
+                </span>
+
+            <span sec:authorize="isAuthenticated()"
+                  th:if="${!meeting.closed && meeting.isMember(#authentication.principal)}" class="btn-group"
+                  role="group">
+                <a class="btn btn-outline-warning" th:href="@{'/meeting/'+${meeting.url}+'/leave'}">
+                    모임 탈퇴
+                </a>
+                <a class="btn btn-outline-primary" th:href="@{'/meeting/'+${meeting.url}+'/members'}"
+                   th:text="${meeting.members.size()}">1</a>
+                </span>
+            <span sec:authorize="isAuthenticated()"
+                  th:if="${meeting.published && !meeting.closed && meeting.isManager(#authentication.principal)}">
+                <a class="btn btn-outline-primary" th:href="@{'/meeting/'+${meeting.url}+'/new-event'}">
+                    <i class="fa fa-plus"></i>리얼 모임 만들기
+                </a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="meeting-menu (meetingMenu)" class="row px-3 justify-content-center bg-light">
+    <nav class="col-10 nav nav-tabs">
+        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='info'}?active" th:href="@{'/meeting/'+${meeting.url}}">
+            <i class="fa fa-info-circle"></i>소개
+        </a>
+        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='members'}?active" th:href="@{'/meeting/'+${meeting.url} +'/members'}">
+            <i class="fa fa-user"></i>구성원
+        </a>
+        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='events'}?active" th:href="@{'/meeting/'+${meeting.url} +'/events'}">
+            <i class="fa fa-calendar"></i>모임
+        </a>
+        <a sec:authorize="isAuthenticated()" th:if="${meeting.isManager(#authentication.principal)}"
+           class="nav-item nav-link" th:href="@{'/meeting/' +${meeting.url} +'/settings/description'}">
+            <i class="fa fa-cog"></i>설정
+        </a>
+    </nav>
+</div>
+
 
 <script type="application/javascript" th:fragment="validation">
     $(function(){
@@ -113,6 +194,7 @@ active" href="#" th:href="@{/settings/username}">계정</a>
             })
         },false)
     }())
+
 </script>
 
 <script type="application/javascript" th:fragment="summernote">
@@ -124,6 +206,7 @@ active" href="#" th:href="@{/settings/username}">계정</a>
           height:300
        });
     });
+
 </script>
 </body>
 </html>
