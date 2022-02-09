@@ -6,7 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of="id")
@@ -16,12 +18,11 @@ public class Meeting {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name="account_id")
-    private Account manager;
+    @ManyToMany
+    private Set<Account> managers=new HashSet<>();
 
     @ManyToMany
-    private List<Account> members=new ArrayList<>();
+    private Set<Account> members=new HashSet<>();
 
     @Column(unique = true)
     private String url;
@@ -48,15 +49,14 @@ public class Meeting {
 
     private boolean useBanner;
 
-    public void setManager(Account manager) {
-        this.manager=manager;
-        manager.setMeeting(this);
+    public void setManager(Account account) {
+        this.managers.add(account);
     }
 
     public boolean isJoinable(UserAccount userAccount){
         Account account = userAccount.getAccount();
         return recruiting && this.published
-                && !members.contains(account) && !manager.equals(account);
+                && !members.contains(account) && !managers.contains(account);
     }
 
     public boolean isMember(UserAccount userAccount){
@@ -64,6 +64,6 @@ public class Meeting {
     }
 
     public boolean isManager(UserAccount userAccount){
-        return manager.equals(userAccount);
+        return managers.contains(userAccount.getAccount());
     }
 }

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,13 +51,13 @@ public class MeetingController {
         }
 
         Meeting newMeeting = meetingService.createMeeting(meetingDto, meeting, account);
-        return "redirect:/meeting/"+newMeeting.getUrl();
+        return "redirect:/meeting/"+ URLEncoder.encode(newMeeting.getUrl(), StandardCharsets.UTF_8);
     }
 
     @GetMapping("/meeting/{url}")
-    public String MeetingUrl(@AuthUser Account account, @PathVariable String url, Model model){
+    public String MeetingView(@AuthUser Account account, @PathVariable String url, Model model){
         model.addAttribute(account);
         model.addAttribute(meetingRepository.findByUrl(url));
-        return "meeting/url";
+        return "meeting/view";
     }
 }

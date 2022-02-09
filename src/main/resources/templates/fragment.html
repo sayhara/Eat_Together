@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 
-<nav th:fragment="nav" class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav th:fragment="navigation" class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="/" th:href="@{/}">
         <img src="/images/logo.png" width="60" height="45">
     </a>
@@ -159,22 +159,21 @@ active" href="#" th:href="@{/settings/username}">계정</a>
 
 <div th:fragment="meeting-menu (meetingMenu)" class="row px-3 justify-content-center bg-light">
     <nav class="col-10 nav nav-tabs">
-        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='info'}?active" th:href="@{'/meeting/'+${meeting.url}}">
+        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='info'}?active" th:href="@{'/meeting/'+${meeting?.url}}">
             <i class="fa fa-info-circle"></i>소개
         </a>
-        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='members'}?active" th:href="@{'/meeting/'+${meeting.url} +'/members'}">
+        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='members'}?active" th:href="@{'/meeting/'+${meeting?.url} +'/members'}">
             <i class="fa fa-user"></i>구성원
         </a>
-        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='events'}?active" th:href="@{'/meeting/'+${meeting.url} +'/events'}">
+        <a class="nav-item nav-link" href="#" th:classappend="${meetingMenu=='events'}?active" th:href="@{'/meeting/'+${meeting?.url} +'/events'}">
             <i class="fa fa-calendar"></i>모임
         </a>
         <a sec:authorize="isAuthenticated()" th:if="${meeting.isManager(#authentication.principal)}"
-           class="nav-item nav-link" th:href="@{'/meeting/' +${meeting.url} +'/settings/description'}">
+           class="nav-item nav-link" th:href="@{'/meeting/' +${meeting?.url} +'/settings/description'}">
             <i class="fa fa-cog"></i>설정
         </a>
     </nav>
 </div>
-
 
 <script type="application/javascript" th:fragment="validation">
     $(function(){
@@ -206,7 +205,6 @@ active" href="#" th:href="@{/settings/username}">계정</a>
           height:300
        });
     });
-
 </script>
 </body>
 </html>

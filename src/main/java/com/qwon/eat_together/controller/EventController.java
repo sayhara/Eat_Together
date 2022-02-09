@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/meeting/{url}")
+@RequestMapping("/meeting/{}")
 @RequiredArgsConstructor
 public class EventController {
 }
