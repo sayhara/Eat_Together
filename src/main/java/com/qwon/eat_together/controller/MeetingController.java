@@ -55,9 +55,16 @@ public class MeetingController {
     }
 
     @GetMapping("/meeting/{url}")
-    public String MeetingView(@AuthUser Account account, @PathVariable String url, Model model){
+    public String viewMeeting(@AuthUser Account account, @PathVariable String url, Model model){
         model.addAttribute(account);
         model.addAttribute(meetingRepository.findByUrl(url));
         return "meeting/view";
+    }
+
+    @GetMapping("/meeting/{url}/members")
+    public String viewMeetingMembers(@AuthUser Account account, @PathVariable String url, Model model){
+        model.addAttribute(account);
+        model.addAttribute(meetingRepository.findByUrl(url));
+        return "meeting/members";
     }
 }

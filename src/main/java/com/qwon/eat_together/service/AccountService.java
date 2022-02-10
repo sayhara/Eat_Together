@@ -62,6 +62,14 @@ public class AccountService implements UserDetailsService {
         return new UserAccount(account);
     }
 
+    public Account getAccount(String username){
+        Account account = accountRepository.findByUsername(username);
+        if(account==null){
+            throw new IllegalArgumentException(username+"에 해당하는 사용자가 없습니다.");
+        }
+        return account;
+    }
+
     public void profileUpdate(Account account, @Valid Profile profile) {
         modelMapper.map(profile,account); // map.(source,destination)
         // 주의사항 : 인스턴스의 이름이 같아야 함

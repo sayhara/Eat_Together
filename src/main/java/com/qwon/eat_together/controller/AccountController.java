@@ -51,12 +51,11 @@ public class AccountController {
 
     @GetMapping("/profile/{username}")
     public String profilePage(@PathVariable String username, Model model, @AuthUser Account account){
-        Account findUser = accountRepository.findByUsername(username);
 
-        if(findUser.equals(account)){
-            model.addAttribute("manager");
-        }
-        model.addAttribute("account",findUser);
+        Account owner = accountService.getAccount(username);
+
+        model.addAttribute(owner);
+        model.addAttribute("isOwner",owner.equals(account));
         return "account/profile";
     }
 
