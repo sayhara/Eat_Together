@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment.html :: head"></head>
+
+<div th:replace="fragment.html :: navigation"></div>
+
+<div class="container">
+    <div th:replace="fragment.html :: meeting-info"></div>
+    <div th:replace="fragment.html :: meeting-menu(meetingMenu='setting')"></div><br><br>
+    <div class="row px-3 justify-content-center">
+
+        <div class="col-2">
+            <div th:replace="fragment.html :: meeting-setting-menu(currentMenu='info')"></div>
+        </div>
+
+        <div class="col-8">
+            <div th:replace="fragment.html :: message"></div>
+            <form class="needs-validation col-sm-10" th:action="@{'/meeting/'+${meeting.getUrl()}+'/setting/info'}"
+                  th:object="${meetingInfoDto}" method="post" novalidate>
+                <div class="form-group">
+                    <label for="short_message">짧은 소개</label>
+                    <textarea id="short_message" type="textarea" th:field="*{short_message}" class="form-control"
+                              placeholder="모임을 간단하게 소개해 주세요." aria-describedby="short_messageHelp"></textarea>
+                    <small id="short_messageHelp" class="form-text text-muted">
+                        모임에 대한 간단한 소개를 해주세요.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="long_message">상세 소개</label>
+                    <textarea id="long_message" type="textarea" th:field="*{long_message}" class="form-control"
+                              placeholder="모임을 상세히 설명해 주세요." aria-describedby="long_messageHelp" required></textarea>
+                    <small id="long_messageHelp" class="form-text text-muted">
+                        모임에 대한 상세 설명을 입력해 주세요.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit"
+                            aria-describedby="submitHelp">수정하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:replace="fragment.html :: validation"></script>
+<script th:replace="fragment.html :: summernote"></script>
+
+</body>
+</html>

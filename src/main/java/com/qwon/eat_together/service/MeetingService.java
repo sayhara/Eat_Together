@@ -2,7 +2,7 @@ package com.qwon.eat_together.service;
 
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Meeting;
-import com.qwon.eat_together.dto.MeetingDescriptionDto;
+import com.qwon.eat_together.dto.MeetingInfoDto;
 import com.qwon.eat_together.dto.MeetingDto;
 import com.qwon.eat_together.repository.MeetingRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,19 @@ public class MeetingService {
         return meeting;
     }
 
-    public void updateMeetingDescription(Meeting meeting, MeetingDescriptionDto meetingDescriptionDto) {
-        modelMapper.map(meetingDescriptionDto,meeting);
+    public void updateMeetingInfo(Meeting meeting, MeetingInfoDto meetingInfoDto) {
+        modelMapper.map(meetingInfoDto,meeting);
+    }
+
+    public void updateMeetingImage(Meeting meeting, String image) {
+        meeting.setImage(image);
+    }
+
+    public void enableBannerImage(Meeting meeting) {
+        meeting.setUseBanner(true);
+    }
+
+    public void disableBannerImage(Meeting meeting) {
+        meeting.setUseBanner(false);
     }
 }

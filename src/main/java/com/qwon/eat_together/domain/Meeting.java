@@ -53,6 +53,10 @@ public class Meeting {
         this.managers.add(account);
     }
 
+    public String getImage(){
+        return image!=null?image:"/images/default_image.jpg";
+    }
+
     public boolean isJoinable(UserAccount userAccount){
         Account account = userAccount.getAccount();
         return recruiting && this.published

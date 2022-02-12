@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MeetingDescriptionDto {
+public class MeetingInfoDto {
 
     private String short_message;
 
