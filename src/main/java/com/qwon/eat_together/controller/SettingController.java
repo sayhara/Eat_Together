@@ -103,4 +103,45 @@ public class SettingController {
         meetingService.disableBannerImage(meeting);
         return "redirect:/meeting/"+URLEncoder.encode(url, StandardCharsets.UTF_8)+"/setting/banner";
     }
+
+    @GetMapping("/meeting")
+    public String viewMeeting(@AuthUser Account account, @PathVariable String url, Model model)
+            throws AccessDeniedException {
+
+        Meeting meeting = meetingService.meetingUpdate(account, url);
+        model.addAttribute(meeting);
+        model.addAttribute(account);
+        return "meeting/setting/meeting";
+    }
+
+    @PostMapping("/meeting/publish")
+    public String publishMeeting(@AuthUser Account account, @PathVariable String url,
+                                 RedirectAttributes attributes) throws AccessDeniedException {
+
+        Meeting meeting = meetingService.meetingUpdate(account, url);
+        meetingService.publish(meeting);
+        attributes.addFlashAttribute("message","모임을 공개했습니다.");
+        return "redirect:/meeting/"+URLEncoder.encode(url, StandardCharsets.UTF_8)+"/setting/meeting";
+    }
+
+    @PostMapping("/meeting/close")
+    public String closeMeeting(@AuthUser Account account, @PathVariable String url,
+                               RedirectAttributes attributes) throws AccessDeniedException {
+
+        Meeting meeting = meetingService.meetingUpdate(account, url);
+        meetingService.close(meeting);
+        attributes.addFlashAttribute("message","모임을 종료했습니다.");
+        return "redirect:/meeting/"+URLEncoder.encode(url, StandardCharsets.UTF_8)+"/setting/meeting";
+
+    }
+
+    @PostMapping("/meeting/remove")
+    public String removeMeeting(@AuthUser Account account, @PathVariable String url,
+                                Model model) throws AccessDeniedException {
+
+        Meeting meeting = meetingService.meetingUpdate(account, url);
+        meetingService.remove(meeting);
+        return "redirect:/";
+    }
+
 }

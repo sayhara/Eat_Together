@@ -118,12 +118,6 @@ active" href="#" th:href="@{/settings/username}">계정</a>
                     <button class="btn btn-primary btn-sm" style="pointer-events:none;" type="button"
                             disabled>CLOSED</button>
                 </span>
-            <span th:if="${!meeting.recruiting}"
-                  class="d-inline-block ml-1" tabindex="0" data-toggle="tooltip" data-placement="bottom"
-                  title="팀원 모집중 아님">
-                    <button class="btn btn-primary btn-sm" style="pointer-events:none;" type="button"
-                            disabled>OFF</button>
-                </span>
 
             <span sec:authorize="isAuthenticated()" th:if="${meeting.isJoinable(#authentication.principal)}"
                   class="btn-group" role="group" aria-label="Basic example">
@@ -165,8 +159,8 @@ active" href="#" th:href="@{/settings/username}">계정</a>
             <i class="fa fa-calendar"></i>모임
         </a>
 
-        <a sec:authorize="isAuthenticated()" th:if="${meeting.isManager(#authentication.principal)}"
-           class="nav-item nav-link" th:href="@{'/meeting/' +${meeting?.url} +'/setting/info'}">
+        <a sec:authorize="isAuthenticated()" th:if="${meeting.isManager(#authentication.principal)}" class="nav-item nav-link"
+           th:href="@{'/meeting/' +${meeting?.url} +'/setting/info'}">
             <i class="fa fa-cog"></i>설정
         </a>
     </nav>
@@ -208,7 +202,7 @@ active" href="#" th:href="@{/settings/username}">계정</a>
        href="#" th:href="@{'/meeting/'+${meeting.url}+'/setting/info'}">소개</a>
     <a class="list-group-item list-group-item-action" th:classappend="${currentMenu=='image'}? active"
        href="#" th:href="@{'/meeting/'+${meeting.url}+'/setting/banner'}">배너 이미지</a>
-    <a class="list-group-item list-group-item-action list-group-item-danger" th:classappend="${currentMenu=='info'}? active"
+    <a class="list-group-item list-group-item-action list-group-item-danger" th:classappend="${currentMenu=='meeting'}? active"
        href="#" th:href="@{'/meeting/'+${meeting.url}+'/setting/meeting'}">모임</a>
 </div>
 

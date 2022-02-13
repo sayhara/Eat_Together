@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment.html :: head"></head>
+<body>
+<nav th:replace="fragment.html :: navigation"></nav>
+<div class="container">
+  <div th:replace="fragment.html :: meeting-info"></div>
+  <div th:replace="fragment.html :: meeting-menu(meetingMenu='setting')"></div>
+
+  <div class="row mt-3 justify-content-center">
+    <div class="col-2">
+      <div th:replace="fragment.html :: meeting-setting-menu(currentMenu='meeting')"></div>
+    </div>
+    <div class="col-8">
+      <div th:replace="fragment.html :: message"></div>
+
+      <div class="row">
+        <h5 class="col-sm-12">모임 공개 및 종료</h5>
+
+        <form th:if="${!meeting.published && !meeting.closed}" class="col-sm-12" action="#"
+              th:action="@{'/meeting/' + ${meeting.getUrl()} +'/setting/meeting/publish'}" method="post" novalidate>
+          <div class="alert alert-info" role="alert">모임을 공개합니다.<br/></div>
+          <div class="form-group">
+            <button class="btn btn-outline-primary" type="submit" aria-describedby="submitHelp">모임 공개</button>
+          </div>
+        </form>
+
+        <form th:if="${meeting.published && !meeting.closed}" class="col-sm-12" action="#"
+              th:action="@{'/meeting/' + ${meeting.getUrl()} +'/setting/meeting/close'}" method="post" novalidate>
+          <div class="alert alert-warning" role="alert">모임을 종료합니다.<br/></div>
+          <div class="form-group">
+            <button class="btn btn-outline-warning" type="submit" aria-describedby="submitHelp">모임 종료</button>
+          </div>
+        </form>
+      </div>
+
+      <hr/>
+      <div class="row" th:if="${!meeting.isPublished()}">
+        <h5 class="col-sm-12 text-danger">모임 삭제</h5>
+        <form class="col-sm-12" action="#" th:action="@{'/meeting/' + ${meeting.getUrl()} +
+    '/setting/meeting/remove'}" method="post" novalidate>
+
+          <div class="alert alert-danger" role="alert">
+            모임을 삭제합니다. <br/>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit"
+                    aria-describedby="submitHelp">모임 삭제</button>
+          </div>
+        </form>
+      </div>
+      <div class="row" th:if="${meeting.isPublished()}">
+        <h5 class="col-sm-12 text-danger">모임 삭제</h5>
+        <form class="col-sm-12" action="#" th:action="@{'/meeting/' + ${meeting.getUrl()} +
+    '/setting/meeting/remove'}" method="post" novalidate>
+          <div class="alert alert-danger" role="alert">
+            공개 중인 모임은 삭제할 수 없습니다.
+          </div>
+          <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit"
+                    aria-describedby="submitHelp" disabled>모임 삭제</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div th:replace="fragment.html :: footer"></div>
+<script th:replace="fragment.html :: tooltip"></script>
+<script th:replace="fragment.html :: validation"></script>
+</body>
+</html>

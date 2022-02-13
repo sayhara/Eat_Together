@@ -59,4 +59,20 @@ public class MeetingService {
     public void disableBannerImage(Meeting meeting) {
         meeting.setUseBanner(false);
     }
+
+    public void publish(Meeting meeting) {
+        meeting.publish();
+    }
+
+    public void close(Meeting meeting) {
+        meeting.close();
+    }
+
+    public void remove(Meeting meeting) {
+        if(!meeting.isPublished()){
+            meetingRepository.delete(meeting);
+        } else {
+            throw new IllegalArgumentException("모임을 삭제할 수 없습니다.");
+        }
+    }
 }

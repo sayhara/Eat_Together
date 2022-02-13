@@ -33,6 +33,7 @@ public class Meeting {
 
     private String long_message;
 
+    @Lob @Basic(fetch = FetchType.EAGER)
     private String image;
 
     private LocalDateTime publishTime;
@@ -53,8 +54,8 @@ public class Meeting {
         this.managers.add(account);
     }
 
-    public String getImage(){
-        return image!=null?image:"/images/default_image.jpg";
+    public String getImage() {
+        return image != null ? image : "/images/default_banner.jpg";
     }
 
     public boolean isJoinable(UserAccount userAccount){
@@ -69,5 +70,25 @@ public class Meeting {
 
     public boolean isManager(UserAccount userAccount){
         return managers.contains(userAccount.getAccount());
+    }
+
+    public void publish(){
+
+        if(!this.closed && !this.published){
+            this.published=true;
+            this.publishTime=LocalDateTime.now();
+        } else {
+            throw new RuntimeException("모임을 공개할 수 없는 상태입니다.");
+        }
+    }
+
+    public void close(){
+
+        if(!this.closed && this.published){
+            this.closed=true;
+            this.closedTime=LocalDateTime.now();
+        } else {
+            throw new RuntimeException("모임을 종료할 수 없는 상태입니다.");
+        }
     }
 }
