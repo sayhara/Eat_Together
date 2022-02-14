@@ -16,6 +16,9 @@ public class Event {
     private Long id;
 
     @ManyToOne
+    private Meeting meeting;
+
+    @ManyToOne
     private Account createdBy;
 
     @Column(nullable = false)

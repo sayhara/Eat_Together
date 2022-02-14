@@ -3,7 +3,9 @@ package com.qwon.eat_together.controller;
 import com.qwon.eat_together.config.AuthUser;
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Meeting;
+import com.qwon.eat_together.dto.MeetingDto;
 import com.qwon.eat_together.dto.MeetingInfoDto;
+import com.qwon.eat_together.repository.MeetingRepository;
 import com.qwon.eat_together.service.MeetingService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,6 +28,7 @@ import java.nio.file.AccessDeniedException;
 public class SettingController {
 
     private final MeetingService meetingService;
+    private final MeetingRepository meetingRepository;
     private final ModelMapper modelMapper;
 
     @GetMapping("/info")
@@ -142,6 +145,23 @@ public class SettingController {
         Meeting meeting = meetingService.meetingUpdate(account, url);
         meetingService.remove(meeting);
         return "redirect:/";
+    }
+
+    @GetMapping("/meeting/{url}/join")
+    public String joinMeeting(@AuthUser Account account, @PathVariable String url){
+
+        Meeting meeting = meetingRepository.findMeetingWithManagersByUrl(url);
+        meetingService.addMember(meeting,account);
+        return "redirect:/meeting/"+URLEncoder.encode(url, StandardCharsets.UTF_8)+"/members";
+    }
+
+    @GetMapping("/meeting/{url}/leave")
+    public String leaveMeeting(@AuthUser Account account, @PathVariable String url){
+
+        Meeting meeting = meetingRepository.findMeetingWithManagersByUrl(url);
+        meetingService.removeMember(meeting,account);
+        return "redirect:/meeting/"+URLEncoder.encode(url, StandardCharsets.UTF_8)+"/members";
+
     }
 
 }

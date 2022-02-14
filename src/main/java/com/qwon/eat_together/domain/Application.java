@@ -17,7 +17,7 @@ public class Application {
     private Event event; // 여러 개의 신청서 & 하나의 모임
 
     @ManyToOne
-    private Account account;
+    private Account account; // 신청한 사람
 
     private boolean accepted;
 

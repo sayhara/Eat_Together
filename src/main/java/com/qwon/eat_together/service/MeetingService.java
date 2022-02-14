@@ -75,4 +75,17 @@ public class MeetingService {
             throw new IllegalArgumentException("모임을 삭제할 수 없습니다.");
         }
     }
+
+    public void addMember(Meeting meeting, Account account) {
+        meeting.getMembers().add(account);
+    }
+
+    public void removeMember(Meeting meeting, Account account) {
+        meeting.getMembers().remove(account);
+    }
+
+    public Meeting createMeeting(MeetingDto meetingDto, Meeting meeting) {
+        modelMapper.map(meeting,meeting);
+        return meetingRepository.save(meeting);
+    }
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AccessDeniedException;
 
 @Controller
 @RequiredArgsConstructor
@@ -67,4 +68,5 @@ public class MeetingController {
         model.addAttribute(meetingRepository.findByUrl(url));
         return "meeting/members";
     }
+
 }
