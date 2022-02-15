@@ -42,8 +42,6 @@ public class Meeting {
 
     private LocalDateTime recruitTime;
 
-    private boolean recruiting;
-
     private boolean published;
 
     private boolean closed;
@@ -60,8 +58,7 @@ public class Meeting {
 
     public boolean isJoinable(UserAccount userAccount){
         Account account = userAccount.getAccount();
-        return recruiting && this.published
-                && !members.contains(account) && !managers.contains(account);
+        return this.published && !members.contains(account) && !managers.contains(account);
     }
 
     public boolean isMember(UserAccount userAccount){

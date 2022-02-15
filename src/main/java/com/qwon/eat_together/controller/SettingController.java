@@ -3,7 +3,6 @@ package com.qwon.eat_together.controller;
 import com.qwon.eat_together.config.AuthUser;
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Meeting;
-import com.qwon.eat_together.dto.MeetingDto;
 import com.qwon.eat_together.dto.MeetingInfoDto;
 import com.qwon.eat_together.repository.MeetingRepository;
 import com.qwon.eat_together.service.MeetingService;

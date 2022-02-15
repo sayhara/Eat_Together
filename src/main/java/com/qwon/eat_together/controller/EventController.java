@@ -5,6 +5,7 @@ import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Event;
 import com.qwon.eat_together.domain.Meeting;
 import com.qwon.eat_together.dto.EventFormDto;
+import com.qwon.eat_together.repository.EventRepository;
 import com.qwon.eat_together.service.EventService;
 import com.qwon.eat_together.service.MeetingService;
 import com.qwon.eat_together.validation.EventFormDtoValidator;
@@ -29,6 +30,7 @@ public class EventController {
     private final EventService eventService;
     private final ModelMapper modelMapper;
     private final EventFormDtoValidator eventFormDtoValidator;
+    private final EventRepository eventRepository;
 
     @InitBinder("eventFormDto")
     public void InitBinder(WebDataBinder webDataBinder){
@@ -64,5 +66,15 @@ public class EventController {
 
         Event event = eventService.createEvent(modelMapper.map(eventFormDto, Event.class), meeting, account);
         return "redirect:/meeting/"+URLEncoder.encode(meeting.getUrl(), StandardCharsets.UTF_8)+"/events/"+event.getId();
+    }
+
+    @GetMapping("/events/{id}")
+    public String getEvent(@AuthUser Account account, @PathVariable String url,
+                           @PathVariable Long id, Model model){
+
+        model.addAttribute(account);
+        model.addAttribute(eventRepository.findById(id).orElseThrow());
+        model.addAttribute(meetingService.getMeeting(url));
+        return "event/view";
     }
 }
