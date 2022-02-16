@@ -146,21 +146,4 @@ public class SettingController {
         return "redirect:/";
     }
 
-    @GetMapping("/meeting/{url}/join")
-    public String joinMeeting(@AuthUser Account account, @PathVariable String url){
-
-        Meeting meeting = meetingRepository.findMeetingWithManagersByUrl(url);
-        meetingService.addMember(meeting,account);
-        return "redirect:/meeting/"+URLEncoder.encode(url, StandardCharsets.UTF_8)+"/members";
-    }
-
-    @GetMapping("/meeting/{url}/leave")
-    public String leaveMeeting(@AuthUser Account account, @PathVariable String url){
-
-        Meeting meeting = meetingRepository.findMeetingWithManagersByUrl(url);
-        meetingService.removeMember(meeting,account);
-        return "redirect:/meeting/"+URLEncoder.encode(url, StandardCharsets.UTF_8)+"/members";
-
-    }
-
 }

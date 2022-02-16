@@ -77,11 +77,11 @@ public class MeetingService {
     }
 
     public void addMember(Meeting meeting, Account account) {
-        meeting.getMembers().add(account);
+        meeting.addMember(account);
     }
 
     public void removeMember(Meeting meeting, Account account) {
-        meeting.getMembers().remove(account);
+        meeting.removeMember(account);
     }
 
     public Meeting createMeeting(MeetingDto meetingDto, Meeting meeting) {

@@ -38,3 +38,6 @@ out/
 
 ### Custom ###
 application-oauth.yml
+
+### QClass ###
+/src/main/generated/

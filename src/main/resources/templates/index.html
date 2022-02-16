@@ -2,9 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragment.html::head"></head>
 
+<style>
+    i:hover{
+        transform:scale(1.3);
+    }
+</style>
+
 <body>
 <nav th:replace="fragment.html::navigation"></nav>
-
 
 <div style="margin:auto; text-align:center;"><br><br><br>
     <form style="display:inline-block; height:10px;" th:action="@{/search/meeting}" class="form-inline" method="get">

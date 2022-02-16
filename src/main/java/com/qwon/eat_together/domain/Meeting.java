@@ -88,4 +88,12 @@ public class Meeting {
             throw new RuntimeException("모임을 종료할 수 없는 상태입니다.");
         }
     }
+
+    public void addMember(Account account) {
+        this.getMembers().add(account);
+    }
+
+    public void removeMember(Account account){
+        this.getMembers().remove(account);
+    }
 }
