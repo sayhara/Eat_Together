@@ -4,13 +4,13 @@
 <div th:replace="fragment.html :: navigation"></div>
 <div class="container">
     <div class="py-5 text-center">
-        <p class="lead" th:if="${meetingList.size()==0}">
+        <p class="lead" th:if="${meetingList.getTotalElements()==0}">
             <strong th:text="${keyword}" id="keyword" class="context"></strong>에
             해당하는 모임이 없습니다.
         </p>
-        <p class="lead" th:if="${meetingList.size()>0}">
+        <p class="lead" th:if="${meetingList.getTotalElements()>0}">
             <strong th:text="${keyword}" id="keyword" class="context"></strong>에
-            해당하는 모임을 <span th:text="${meetingList.size()}"></span>개 찾았습니다.
+            해당하는 모임을 <span th:text="${meetingList.getTotalElements()}"></span>개 찾았습니다.
         </p>
     </div>
     <div class="row justify-content-center">
