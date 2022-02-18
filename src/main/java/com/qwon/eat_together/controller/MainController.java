@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class MainController {
@@ -20,11 +22,16 @@ public class MainController {
     private final MeetingRepository meetingRepository;
 
     @GetMapping("/")
-    public String home(@AuthUser Account account, Model model){
+    public String home(@AuthUser Account account, Model model,
+                       @PageableDefault(size = 9, sort = "publishTime", direction = Sort.Direction.ASC)
+                       Pageable pageable){
 
-        if(account!=null){ // anonymousUser 라면 null
+        if(account!=null){ // anonymousUser-> null
             model.addAttribute(account);
         }
+
+        List<Meeting> meetingList=meetingRepository.findFirst9ByPublishedAndClosedOrderByPublishTimeDesc(true,false);
+        model.addAttribute("meetingList",meetingList);
 
         return "index";
     }

@@ -1,13 +1,14 @@
 package com.qwon.eat_together.repository;
 
 import com.qwon.eat_together.domain.Meeting;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional(readOnly = true)
-public interface MeetingRepository extends JpaRepository<Meeting, Long>, MeetingRepositorySearch {
+public interface MeetingRepository extends JpaRepository<Meeting, Long>, MeetingRepositoryCustom {
 
     boolean existsByUrl(String url);
 
@@ -15,5 +16,6 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long>, Meeting
 
     Meeting findMeetingWithManagersByUrl(String url);
 
+    List<Meeting> findFirst9ByPublishedAndClosedOrderByPublishTimeDesc(boolean b, boolean b1);
 }
 

@@ -8,6 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface MeetingRepositorySearch {
+public interface MeetingRepositoryCustom {
     Page<Meeting> findByKeyword(String keyword, Pageable pageable);
 }

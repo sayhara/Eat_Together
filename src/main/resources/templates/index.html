@@ -3,8 +3,8 @@
 <head th:replace="fragment.html::head"></head>
 
 <style>
-    i:hover{
-        transform:scale(1.3);
+    i:hover {
+        transform: scale(1.3);
     }
 </style>
 
@@ -17,6 +17,35 @@
                placeholder="주변에 원하는 모임이 있는지 찾아보세요!">
         <a><i class="fas fa-search"></i></a>
     </form>
+</div>
+<br><br>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col-md-4" th:each="meeting: ${meetingList}">
+                    <div class="card mb-4 shadow-sm">
+                        <img th:src="${meeting.image}" class="card-img-top"
+                             th:alt="${meeting.title}">
+                        <div class="card-body">
+                            <a th:href="@{'/meeting/' + ${meeting.url}}"
+                               class="text-decoration-none">
+                                <h5 class="card-title context" th:text="${meeting.title}"></h5>
+                            </a>
+                            <p class="card-text" th:text="${meeting.short_message}">Short
+                                description</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted"> <i class="fa fa-user-circle"></i>
+                                    <span th:text="${meeting.members.size()}"></span>명
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer>

@@ -10,12 +10,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingRepositorySearchImpl
-        extends QuerydslRepositorySupport implements MeetingRepositorySearch {
+public class MeetingRepositoryCustomImpl
+        extends QuerydslRepositorySupport implements MeetingRepositoryCustom {
 
-    public MeetingRepositorySearchImpl() {
+    public MeetingRepositoryCustomImpl() {
         super(Meeting.class); // 상위 클래스
     }
 
@@ -29,4 +30,5 @@ public class MeetingRepositorySearchImpl
         QueryResults<Meeting> fetchResults = pageQuery.fetchResults();
         return new PageImpl<>(fetchResults.getResults(),pageable,fetchResults.getTotal());
     }
+
 }
