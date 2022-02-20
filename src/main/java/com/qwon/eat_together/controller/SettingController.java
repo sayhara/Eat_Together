@@ -72,16 +72,10 @@ public class SettingController {
     }
 
     @PostMapping("/banner")
-    public String updateMeetingBanner(@AuthUser Account account, @PathVariable String url, Model model,
-                                      String image, Errors errors, RedirectAttributes attributes) throws AccessDeniedException {
+    public String updateMeetingBanner(@AuthUser Account account, @PathVariable String url,
+                                      String image, RedirectAttributes attributes) throws AccessDeniedException {
 
         Meeting meeting = meetingService.meetingUpdate(account, url);
-
-        if(errors.hasErrors()){
-            model.addAttribute(account);
-            model.addAttribute(meeting);
-            return "meeting/setting/banner";
-        }
 
         meetingService.updateMeetingImage(meeting,image);
         attributes.addFlashAttribute("message","모임 배너이미지를 수정했습니다.");
