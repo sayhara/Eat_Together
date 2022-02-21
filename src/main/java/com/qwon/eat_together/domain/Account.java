@@ -37,6 +37,10 @@ public class Account {
 
     private boolean result;
 
+    private boolean meetingCreated;
+
+    private boolean meetingUpdated;
+
     @Column(name="update_thing")
     private boolean update;
 

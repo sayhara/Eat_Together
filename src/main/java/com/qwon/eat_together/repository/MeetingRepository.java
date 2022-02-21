@@ -16,6 +16,10 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long>, Meeting
 
     Meeting findMeetingWithManagersByUrl(String url);
 
+    Meeting findMeetingWithManagersAndMembersById(Long id);
+
+    Meeting findMeetingById(Long id);
+
     List<Meeting> findFirst9ByPublishedAndClosedOrderByPublishTimeDesc(boolean b, boolean b1);
 }
 
