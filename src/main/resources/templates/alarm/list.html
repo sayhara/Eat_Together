@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment.html :: head"></head>
+<body class="bg-light">
+<nav th:replace="fragment.html :: navigation"></nav>
+<div class="container">
+    <div class="row py-5 text-center">
+        <div class="col-3">
+            <ul class="list-group">
+                <a href="#" th:href="@{/alarm}" th:classappend="${!isRead}? active"
+                   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    읽지 않은 알림
+                    <span th:text="${notCheckedCount}">3</span>
+                </a>
+                <a href="#" th:href="@{/alarm/old}" th:classappend="${isRead}? active"
+                   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    읽은 알림
+                    <span th:text="${checkedCount}">0</span>
+                </a>
+            </ul>
+
+            <ul class="list-group mt-4">
+                <a href="#" th:if="${createdAlarms.size() > 0}"
+                   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    새 모임 알림
+                    <span th:text="${createdAlarms.size()}">3</span>
+                </a>
+
+                <a href="#" th:if="${updatedAlarms.size() > 0}"
+                   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    참여하고 있는 모임 알림
+                    <span th:text="${updatedAlarms.size()}">0</span>
+                </a>
+            </ul>
+
+            <ul class="list-group mt-4" th:if="${numberOfChecked > 0}">
+                <form th:action="@{/alarm}" th:method="delete">
+                    <button type="submit" class="btn btn-block btn-outline-warning" aria-describedby="deleteHelp">
+                        읽은 알림 삭제
+                    </button>
+                    <small id="deleteHelp">삭제하지 않아도 한달이 지난 알림은 사라집니다.</small>
+                </form>
+            </ul>
+        </div>
+        <div class="col-9">
+            <div class="card" th:if="${alarms.size() == 0}">
+                <div class="card-header">
+                    알림 메시지가 없습니다.
+                </div>
+            </div>
+
+            <div class="card" th:if="${createdAlarms.size() > 0}">
+                <div class="card-header">
+                    새로운 모임이 생겼습니다.
+                </div>
+                <div th:replace="fragment.html :: alarm-list (alarms=${createdAlarms})"></div>
+            </div>
+
+            <div class="card mt-4" th:if="${updatedAlarms.size() > 0}">
+                <div class="card-header">
+                    참여중인 모임 관련 소식이 있습니다.
+                </div>
+                <div th:replace="fragment.html :: alarm-list (alarms=${updatedAlarms})"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragment.html :: footer"></div>
+</body>
+</html>

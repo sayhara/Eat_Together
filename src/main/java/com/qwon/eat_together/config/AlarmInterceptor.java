@@ -33,7 +33,6 @@ public class AlarmInterceptor implements HandlerInterceptor {
         }
     }
 
-
     private boolean isRedirectView(ModelAndView modelAndView) {
         return modelAndView.getViewName().startsWith("redirect:")
                 || modelAndView.getView() instanceof RedirectView;

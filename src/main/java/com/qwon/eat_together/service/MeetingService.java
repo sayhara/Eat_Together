@@ -2,6 +2,7 @@ package com.qwon.eat_together.service;
 
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Meeting;
+import com.qwon.eat_together.dto.MeetingCreatedAlarm;
 import com.qwon.eat_together.dto.MeetingInfoDto;
 import com.qwon.eat_together.dto.MeetingDto;
 import com.qwon.eat_together.dto.MeetingUpdateAlarm;
@@ -66,7 +67,7 @@ public class MeetingService {
 
     public void publish(Meeting meeting) {
         meeting.publish();
-        eventPublisher.publishEvent(new MeetingUpdateAlarm(meeting,"모임이 공개되었습니다."));
+        eventPublisher.publishEvent(new MeetingCreatedAlarm(meeting));
     }
 
     public void close(Meeting meeting) {

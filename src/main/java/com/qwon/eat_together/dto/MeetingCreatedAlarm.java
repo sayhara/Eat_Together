@@ -4,11 +4,11 @@ import com.qwon.eat_together.domain.Meeting;
 import lombok.Getter;
 
 @Getter
-public class MeetingCreateAlarm {
+public class MeetingCreatedAlarm {
 
     private Meeting meeting;
 
-    public MeetingCreateAlarm(Meeting meeting){
+    public MeetingCreatedAlarm(Meeting meeting){
         this.meeting=meeting;
     }
 

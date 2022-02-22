@@ -206,6 +206,17 @@ active" href="#" th:href="@{/settings/username}">계정</a>
     </div>
 </div>
 
+<ul th:fragment="alarm-list (alarms)" class="list-group list-group-flush">
+    <a href="#" th:href="@{${alarm.link}}" th:each="alarm: ${alarms}"
+       class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <small class="text-muted" th:text="${alarm.title}">Alarm title</small>
+            <small class="fromNow text-muted" th:text="${alarm.createdTime}">3 days ago</small>
+        </div>
+        <p th:text="${alarm.message}" class="text-left mb-0 mt-1">message</p>
+    </a>
+</ul>
+
 <script th:fragment="tooltip" type="application/javascript">
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
