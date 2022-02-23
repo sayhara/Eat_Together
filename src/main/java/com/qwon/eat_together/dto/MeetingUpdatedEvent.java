@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class MeetingUpdateAlarm {
+public class MeetingUpdatedEvent {
 
     private final Meeting meeting;
 

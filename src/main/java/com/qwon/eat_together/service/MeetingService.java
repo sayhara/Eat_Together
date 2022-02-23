@@ -2,10 +2,10 @@ package com.qwon.eat_together.service;
 
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Meeting;
-import com.qwon.eat_together.dto.MeetingCreatedAlarm;
+import com.qwon.eat_together.dto.MeetingCreatedEvent;
 import com.qwon.eat_together.dto.MeetingInfoDto;
 import com.qwon.eat_together.dto.MeetingDto;
-import com.qwon.eat_together.dto.MeetingUpdateAlarm;
+import com.qwon.eat_together.dto.MeetingUpdatedEvent;
 import com.qwon.eat_together.repository.MeetingRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -50,7 +50,7 @@ public class MeetingService {
 
     public void updateMeetingInfo(Meeting meeting, MeetingInfoDto meetingInfoDto) {
         modelMapper.map(meetingInfoDto,meeting);
-        eventPublisher.publishEvent(new MeetingUpdateAlarm(meeting,"모임의 상세설명이 수정되었습니다."));
+        eventPublisher.publishEvent(new MeetingUpdatedEvent(meeting,"모임의 상세설명이 수정되었습니다."));
     }
 
     public void updateMeetingImage(Meeting meeting, String image) {
@@ -67,12 +67,12 @@ public class MeetingService {
 
     public void publish(Meeting meeting) {
         meeting.publish();
-        eventPublisher.publishEvent(new MeetingCreatedAlarm(meeting));
+        eventPublisher.publishEvent(new MeetingCreatedEvent(meeting));
     }
 
     public void close(Meeting meeting) {
         meeting.close();
-        eventPublisher.publishEvent(new MeetingUpdateAlarm(meeting,"모임이 종료되었습니다."));
+        eventPublisher.publishEvent(new MeetingUpdatedEvent(meeting,"모임이 종료되었습니다."));
     }
 
     public void remove(Meeting meeting) {
@@ -91,8 +91,4 @@ public class MeetingService {
         meeting.removeMember(account);
     }
 
-    public Meeting createMeeting(MeetingDto meetingDto, Meeting meeting) {
-        modelMapper.map(meeting,meeting);
-        return meetingRepository.save(meeting);
-    }
 }

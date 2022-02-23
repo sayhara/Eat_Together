@@ -39,7 +39,9 @@
                 <a class="nav-link" th:href="@{/alarm}">
                     <i th:if="${!hasAlarm}" class="fa fa-bell-o" aria-hidden="true"></i>
                     <span class="text-info" th:if="${hasAlarm}">
-                        <i class="fa fa-bell-o" aria-hidden="true"></i></span></a></li>
+                        <i class="fa fa-bell-o" aria-hidden="true"></i></span>
+                </a>
+            </li>
 
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link btn-outline-primary" th:href="@{/meeting}">
