@@ -2,12 +2,13 @@ package com.qwon.eat_together.service;
 
 import com.qwon.eat_together.domain.Account;
 import com.qwon.eat_together.domain.Meeting;
-import com.qwon.eat_together.dto.MeetingCreatedEvent;
+import com.qwon.eat_together.alarm.MeetingCreatedEvent;
 import com.qwon.eat_together.dto.MeetingInfoDto;
 import com.qwon.eat_together.dto.MeetingDto;
-import com.qwon.eat_together.dto.MeetingUpdatedEvent;
+import com.qwon.eat_together.alarm.MeetingUpdatedEvent;
 import com.qwon.eat_together.repository.MeetingRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.nio.file.AccessDeniedException;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class MeetingService {
 
     private final MeetingRepository meetingRepository;
@@ -50,7 +52,7 @@ public class MeetingService {
 
     public void updateMeetingInfo(Meeting meeting, MeetingInfoDto meetingInfoDto) {
         modelMapper.map(meetingInfoDto,meeting);
-        eventPublisher.publishEvent(new MeetingUpdatedEvent(meeting,"모임의 상세설명이 수정되었습니다."));
+        this.eventPublisher.publishEvent(new MeetingUpdatedEvent(meeting,"모임의 상세설명이 수정되었습니다."));
     }
 
     public void updateMeetingImage(Meeting meeting, String image) {
@@ -67,12 +69,12 @@ public class MeetingService {
 
     public void publish(Meeting meeting) {
         meeting.publish();
-        eventPublisher.publishEvent(new MeetingCreatedEvent(meeting));
+        this.eventPublisher.publishEvent(new MeetingCreatedEvent(meeting, "모임이 생성되었습니다."));
     }
 
     public void close(Meeting meeting) {
         meeting.close();
-        eventPublisher.publishEvent(new MeetingUpdatedEvent(meeting,"모임이 종료되었습니다."));
+        this.eventPublisher.publishEvent(new MeetingUpdatedEvent(meeting,"모임이 종료되었습니다."));
     }
 
     public void remove(Meeting meeting) {

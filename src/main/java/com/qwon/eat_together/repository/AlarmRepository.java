@@ -7,12 +7,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
+@Transactional(readOnly = true)
 public interface AlarmRepository extends JpaRepository<Alarm, Long> {
 
+    @Transactional
     long countByAccountAndChecked(Account account, boolean checked);
 
-    List<Alarm> findByAccountAndCheckedOrderByCreatedTimeDesc(Account account, boolean checked);
-
+    @Transactional
     void deleteByAccountAndChecked(Account account, boolean checked);
+
+    @Transactional
+    List<Alarm> findByAccountAndCheckedOrderByCreatedDateTimeDesc(Account account, boolean checked);
 }

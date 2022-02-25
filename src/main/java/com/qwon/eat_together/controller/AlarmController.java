@@ -6,6 +6,7 @@ import com.qwon.eat_together.domain.Alarm;
 import com.qwon.eat_together.repository.AlarmRepository;
 import com.qwon.eat_together.service.AlarmService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AlarmController {
@@ -21,34 +23,34 @@ public class AlarmController {
     private final AlarmRepository alarmRepository;
     private final AlarmService alarmService;
 
-    @GetMapping("/alarm")
+    @GetMapping("/alarms")
     public String getAlarm(@AuthUser Account account, Model model){
         List<Alarm> alarms =
-                alarmRepository.findByAccountAndCheckedOrderByCreatedTimeDesc(account, false);
-        long checkedCount = alarmRepository.countByAccountAndChecked(account, true);
-        checkAlarmType(model, alarms, checkedCount, alarms.size());
+                alarmRepository.findByAccountAndCheckedOrderByCreatedDateTimeDesc(account, false);
+        long numberOfChecked = alarmRepository.countByAccountAndChecked(account, true);
+        checkAlarmType(model, alarms, numberOfChecked, alarms.size());
         alarmService.readAlarm(alarms);
-        model.addAttribute("isRead",false);
+        model.addAttribute("isNew",true);
         return "alarm/list";
     }
 
-    @GetMapping("alarm/old")
+    @GetMapping("alarms/old")
     public String getOldAlarm(@AuthUser Account account, Model model){
         List<Alarm> alarms =
-                alarmRepository.findByAccountAndCheckedOrderByCreatedTimeDesc(account, true);
-        long notCheckedCount = alarmRepository.countByAccountAndChecked(account, false);
-        checkAlarmType(model, alarms, alarms.size(), notCheckedCount);
-        model.addAttribute("isRead",true);
+                alarmRepository.findByAccountAndCheckedOrderByCreatedDateTimeDesc(account, true);
+        long numberOfNotChecked = alarmRepository.countByAccountAndChecked(account, false);
+        checkAlarmType(model, alarms, alarms.size(), numberOfNotChecked);
+        model.addAttribute("isNew",false);
         return "alarm/list";
     }
 
-    @DeleteMapping("/alarm")
+    @DeleteMapping("/alarms")
     public String deleteAlarm(@AuthUser Account account){
         alarmRepository.deleteByAccountAndChecked(account,true);
         return "redirect:/alarm";
     }
 
-    private void checkAlarmType(Model model, List<Alarm> alarms, long checkedCount, long notCheckedCount){
+    private void checkAlarmType(Model model, List<Alarm> alarms, long numberOfChecked, long numberOfNotChecked){
         List<Alarm> createdAlarms=new ArrayList<>();
         List<Alarm> updatedAlarms=new ArrayList<>();
 
@@ -61,8 +63,11 @@ public class AlarmController {
             }
         }
 
-        model.addAttribute("checkedCount",checkedCount);
-        model.addAttribute("notCheckedCount",notCheckedCount);
+        log.info("만들어짐"+String.valueOf(createdAlarms.size())); // add가 안됨..?
+        log.info("만들어짐"+String.valueOf(updatedAlarms.size()));
+
+        model.addAttribute("numberOfNotChecked",numberOfNotChecked);
+        model.addAttribute("numberOfChecked",numberOfChecked);
         model.addAttribute("alarms",alarms);
         model.addAttribute("createdAlarms",createdAlarms);
         model.addAttribute("updatedAlarms",updatedAlarms);

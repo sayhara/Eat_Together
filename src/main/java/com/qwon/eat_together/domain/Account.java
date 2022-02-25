@@ -33,13 +33,9 @@ public class Account {
 
     private String location;
 
-    private boolean created;
+    private boolean meetingCreated=true;
 
-    private boolean result;
-
-    private boolean meetingCreated;
-
-    private boolean meetingUpdated;
+    private boolean meetingUpdated=true;
 
     @Column(name="update_thing")
     private boolean update;

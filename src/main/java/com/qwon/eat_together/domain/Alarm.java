@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter @EqualsAndHashCode
+@Getter @Setter @EqualsAndHashCode(of="id")
 public class Alarm {
 
     @Id @GeneratedValue
@@ -26,7 +26,7 @@ public class Alarm {
     @ManyToOne
     private Account account;
 
-    private LocalDateTime createdTime;
+    private LocalDateTime createdDateTime;
 
     @Enumerated(EnumType.STRING)
     private AlarmType alarmType;

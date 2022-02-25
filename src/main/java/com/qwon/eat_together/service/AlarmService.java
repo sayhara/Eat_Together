@@ -16,10 +16,8 @@ public class AlarmService {
     private final AlarmRepository alarmRepository;
 
     public void readAlarm(List<Alarm> alarms){
-        for(int i=0;i<alarms.size();i++){
-            alarms.get(i).setChecked(true);
-            alarmRepository.saveAll(alarms);
-        }
+        alarms.forEach(n->n.setChecked(true));
+        alarmRepository.saveAll(alarms);
     }
 
 }

@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row mt-5 justify-content-center">
         <div class="col-2">
-            <div th:replace="fragments.html :: settings-menu(currentMenu='alarms')"></div>
+            <div th:replace="fragment.html :: settings-menus(currentMenu='alarms')"></div>
         </div>
         <div class="col-8">
             <div th:if="${message}"
@@ -26,24 +26,17 @@
                 <form class="col-12" action="#" th:action="@{/settings/alarms}"
                       th:object="${alarmDto}" method="post" novalidate>
                     <div class="alert alert-light" role="alert">
-                        <strong><a href="#" th:href="@{/settings/locations}">근처 위치</a>에
-                            <a href="#" th:href="@{/settings/keywords}">관심있는 주제</a>의 모임이 만들어졌을 때
-                        </strong> 알림을 받을 방법을 설정하세요.
+                        <strong>모임에 대해 알림을 받을 방법을 설정하세요.</strong>
                     </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-switch custom-control-inline">
-                            <input type="checkbox" th:field="*{created}" class="custom-control-input" id="created">
-                            <label class="custom-control-label" for="created"></label>
-                        </div>
-                    </div>
+
                     <div class="alert alert-light" role="alert">
-                        <strong>모임 참가 신청</strong> 결과 알림을 받을 방법을 설정하세요.
+                        <strong>모임 생성</strong> 에 대한 알림을 받을 방법을 설정하세요.
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch custom-control-inline">
-                            <input type="checkbox" th:field="*{result}"
-                                   class="custom-control-input" id="result">
-                            <label class="custom-control-label" for="result"></label>
+                            <input type="checkbox" th:field="*{meetingCreated}"
+                                   class="custom-control-input" id="meetingCreated">
+                            <label class="custom-control-label" for="meetingCreated">웹으로 받기</label>
                         </div>
                     </div>
                     <div class="alert alert-light" role="alert">
@@ -51,8 +44,8 @@
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch custom-control-inline">
-                            <input type="checkbox" th:field="*{update}" class="custom-control-input" id="update">
-                            <label class="custom-control-label" for="update"></label>
+                            <input type="checkbox" th:field="*{meetingUpdated}" class="custom-control-input" id="meetingUpdated">
+                            <label class="custom-control-label" for="meetingUpdated">웹으로 받기</label>
                         </div>
                     </div>
                     <div class="form-group">
