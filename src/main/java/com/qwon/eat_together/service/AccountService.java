@@ -2,6 +2,7 @@ package com.qwon.eat_together.service;
 
 import com.qwon.eat_together.config.UserAccount;
 import com.qwon.eat_together.domain.Account;
+import com.qwon.eat_together.domain.Meeting;
 import com.qwon.eat_together.dto.*;
 import com.qwon.eat_together.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -99,5 +100,9 @@ public class AccountService implements UserDetailsService {
     public void updateUsername(Account account, UsernameDto usernameDto) {
         modelMapper.map(usernameDto,account);
         accountRepository.save(account);
+    }
+
+    public void remove(Account account) {
+        accountRepository.delete(account);
     }
 }

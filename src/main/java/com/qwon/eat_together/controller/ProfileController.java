@@ -2,6 +2,7 @@ package com.qwon.eat_together.controller;
 
 import com.qwon.eat_together.config.AuthUser;
 import com.qwon.eat_together.domain.Account;
+import com.qwon.eat_together.domain.Meeting;
 import com.qwon.eat_together.dto.AlarmDto;
 import com.qwon.eat_together.dto.UsernameDto;
 import com.qwon.eat_together.dto.Profile;
@@ -10,16 +11,23 @@ import com.qwon.eat_together.service.AccountService;
 import com.qwon.eat_together.validation.PasswordDtoValidator;
 import com.qwon.eat_together.validation.UsernameDtoValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.nio.file.AccessDeniedException;
 
 @Controller
 @RequiredArgsConstructor
@@ -120,6 +128,16 @@ public class ProfileController {
         accountService.updateUsername(account,usernameDto);
         attributes.addFlashAttribute("message","닉네임을 수정했습니다.");
         return "redirect:/settings/username";
+    }
+
+    @PostMapping("/meeting/remove")
+    public String removeMeeting(@AuthUser Account account, HttpServletRequest request, HttpServletResponse response){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        accountService.remove(account);
+        if (auth != null && auth.isAuthenticated()) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/";
     }
 
 }

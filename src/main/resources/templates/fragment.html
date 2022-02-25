@@ -19,7 +19,7 @@
 
 <nav th:fragment="navigation" class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="/" th:href="@{/}">
-        <img src="/images/logo.png" width="50" height="40" style="margin-top:10px;">
+        <img src="/images/logo.png" width="40" height="30" style="margin-top:10px;">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent">
@@ -31,9 +31,9 @@
         <ul class="navbar-nav mr-auto"></ul>
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item" sec:authorize="!isAuthenticated()">
-                <a class="nav-link" th:href="@{/login}">JOIN</a></li>
+                <a class="nav-link" th:href="@{/login}"><strong>JOIN</strong></a></li>
             <li class="nav-item" sec:authorize="!isAuthenticated()">
-                <a class="nav-link" th:href="@{/sign-up}">LOGIN</a></li>
+                <a class="nav-link" th:href="@{/sign-up}"><strong>LOGIN</strong></a></li>
 
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" th:href="@{/alarms}">
@@ -60,7 +60,6 @@
                     </h6>
                     <a class="dropdown-item" th:href="@{'/profile/'+${#authentication.name}}">프로필</a>
                     <a class="dropdown-item" th:href="@{/meeting}">모임</a>
-                    <a class="dropdown-item" th:href="@{/alarms}">알림</a>
                     <a class="dropdown-item" th:href="@{'/settings/profile'}">설정</a>
                     <form class="form-inline my-2 my-lg-0" action="#"
                           th:action="@{/logout}" method="post">
