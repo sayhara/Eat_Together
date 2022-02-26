@@ -29,6 +29,4 @@ public class WebConfig implements WebMvcConfigurer {
 
     // 알람에 대한 설정을 모든 url에 적용시키기
     // static 리소스 요청에는 적용하지 않기
-    // 생성된 Path는 제외시키기
-
 }

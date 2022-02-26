@@ -30,31 +30,33 @@ public class MeetingEventListener {
     private final AlarmRepository alarmRepository;
 
     @EventListener
-    public void handleMeetingCreatedEvent(MeetingCreatedEvent meetingCreatedEvent){
-        Meeting meeting=meetingRepository.findMeetingWithManagersAndMembersById(meetingCreatedEvent.getMeeting().getId());
-        Set<Account> accounts=new HashSet<>();
+    public void handleMeetingCreatedEvent(MeetingCreatedEvent meetingCreatedEvent) { // 모임 개설 알림
+        Meeting meeting = meetingRepository.
+                findMeetingWithManagersAndMembersById(meetingCreatedEvent.getMeeting().getId());
+
+        Set<Account> accounts = new HashSet<>();
         accounts.addAll(meeting.getManagers());
         accounts.addAll(meeting.getMembers());
 
         accounts.forEach(account -> {
-            if(account.isMeetingCreated()){
+            if (account.isMeetingCreated()) {
                 createAlarm(meeting, account, meeting.getShort_message(), AlarmType.MEETING_CREATED);
             }
         });
     }
 
     @EventListener
-    public void handleMeetingUpdatedEvent(MeetingUpdatedEvent meetingUpdatedEvent){
+    public void handleMeetingUpdatedEvent(MeetingUpdatedEvent meetingUpdatedEvent) { // 모임 업데이트 알림
 
-        Meeting meeting=meetingRepository.
+        Meeting meeting = meetingRepository.
                 findMeetingWithManagersAndMembersById(meetingUpdatedEvent.getMeeting().getId());
 
-        Set<Account> accounts=new HashSet<>();
+        Set<Account> accounts = new HashSet<>();
         accounts.addAll(meeting.getManagers());
         accounts.addAll(meeting.getMembers());
 
         accounts.forEach(account -> {
-            if(account.isMeetingUpdated()){
+            if (account.isMeetingUpdated()) {
                 createAlarm(meeting, account, meetingUpdatedEvent.getMessage(), AlarmType.MEETING_UPDATED);
 
             }
@@ -62,9 +64,9 @@ public class MeetingEventListener {
     }
 
     private void createAlarm(Meeting meeting, Account account, String message, AlarmType alarmType) {
-        Alarm alarm=new Alarm();
+        Alarm alarm = new Alarm();
         alarm.setTitle(meeting.getTitle());
-        alarm.setLink("/meeting/"+URLEncoder.encode(meeting.getUrl(), StandardCharsets.UTF_8));
+        alarm.setLink("/meeting/" + URLEncoder.encode(meeting.getUrl(), StandardCharsets.UTF_8));
         alarm.setChecked(false);
         alarm.setCreatedDateTime(LocalDateTime.now());
         alarm.setMessage(message);

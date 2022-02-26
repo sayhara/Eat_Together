@@ -63,9 +63,6 @@ public class AlarmController {
             }
         }
 
-        log.info("만들어짐"+String.valueOf(createdAlarms.size())); // add가 안됨..?
-        log.info("만들어짐"+String.valueOf(updatedAlarms.size()));
-
         model.addAttribute("numberOfNotChecked",numberOfNotChecked);
         model.addAttribute("numberOfChecked",numberOfChecked);
         model.addAttribute("alarms",alarms);
