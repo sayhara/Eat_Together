@@ -5,10 +5,10 @@
 <div th:replace="fragment.html :: navigation"></div>
 <div class="container">
     <div class="row mt-5 justify-content-center">
-        <div class="col-4">
+        <div class="col-2">
             <div th:replace="fragment.html :: settings-menus(currentMenu='profile')"></div>
         </div>
-        <div class="col-7">
+        <div class="col-8">
             <div th:if="${message}" class="alert alert-info" role="alert">
                 <span th:text="${message}"></span>
             </div>

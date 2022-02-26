@@ -15,13 +15,13 @@ spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
         format_sql: true
 
-# 운영 서버시 ddl-auto :validate, none 사용
+# 운영 서버시 ddl-auto : validate, none 사용
 # createDatabaseIfNotExist: 데이터베이스가 존재하지 않으면 자동으로 생성
 # useUnicode: 유니코드 사용 여부 설정
 # characterEncoding: 문자열 인코딩 종류 설정
