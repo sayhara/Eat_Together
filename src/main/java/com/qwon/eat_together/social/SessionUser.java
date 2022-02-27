@@ -3,7 +3,7 @@ package com.qwon.eat_together.social;
 import lombok.Getter;
 
 import java.io.Serializable;
-
+// Social Login
 @Getter
 public class SessionUser implements Serializable { // 직렬화 기능
     private String name;

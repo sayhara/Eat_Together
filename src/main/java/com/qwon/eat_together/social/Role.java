@@ -2,7 +2,7 @@ package com.qwon.eat_together.social;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
+// Social Login
 @Getter
 @RequiredArgsConstructor
 public enum Role {

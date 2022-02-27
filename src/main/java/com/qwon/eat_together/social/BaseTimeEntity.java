@@ -9,7 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
-
+// Social Login
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)  // Auditing 기능 포함

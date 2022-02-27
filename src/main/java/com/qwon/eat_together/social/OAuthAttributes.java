@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Map;
-
+// Social Login
 @Getter
 public class OAuthAttributes {
     private Map<String, Object> attributes; // OAuth2 반환하는 유저 정보 Map
