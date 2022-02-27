@@ -41,3 +41,6 @@ application-oauth.yml
 
 ### QClass ###
 /src/main/generated/
+
+### social Login ###
+/src/main/java/com/qwon/eat_together/social/
