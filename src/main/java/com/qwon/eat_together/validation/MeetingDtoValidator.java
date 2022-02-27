@@ -1,6 +1,7 @@
 package com.qwon.eat_together.validation;
 
 import com.qwon.eat_together.dto.MeetingDto;
+import com.qwon.eat_together.dto.SignUpDto;
 import com.qwon.eat_together.repository.MeetingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class MeetingDtoValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return MeetingDto.class.isAssignableFrom(clazz);
+        return clazz.isAssignableFrom(MeetingDto.class); // 검증할 클래스
     }
 
     @Override

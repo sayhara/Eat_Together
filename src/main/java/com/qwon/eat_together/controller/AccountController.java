@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AccountController {
 
     private final SignUpDtoValidator signUpDtoValidator;
-    private final AccountRepository accountRepository;
     private final AccountService accountService;
 
     @InitBinder("signUpDto")// @Valid 검증 전에 실행

@@ -29,7 +29,7 @@
                         <img th:src="${meeting.image}" class="card-img-top"
                              th:alt="${meeting.title}">
                         <div class="card-body">
-                            <a th:href="@{'/meeting/' + ${meeting.url}}"
+                            <a style="color: black" th:href="@{'/meeting/' + ${meeting.url}}"
                                class="text-decoration-none">
                                 <h5 class="card-title context" th:text="${meeting.title}"></h5>
                             </a>
@@ -37,7 +37,7 @@
                                 description</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted"> <i class="fa fa-user-circle"></i>
-                                    <span th:text="${meeting.members.size()}"></span>명
+                                    <span th:text="${meeting.members.size()+meeting.managers.size()}"></span>명
                                 </small>
                             </div>
                         </div>

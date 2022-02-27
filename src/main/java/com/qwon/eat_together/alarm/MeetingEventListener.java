@@ -58,7 +58,6 @@ public class MeetingEventListener {
         accounts.forEach(account -> {
             if (account.isMeetingUpdated()) {
                 createAlarm(meeting, account, meetingUpdatedEvent.getMessage(), AlarmType.MEETING_UPDATED);
-
             }
         });
     }

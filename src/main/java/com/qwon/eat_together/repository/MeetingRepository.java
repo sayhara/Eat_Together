@@ -17,11 +17,8 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long>, Meeting
 
     Meeting findMeetingWithManagersByUrl(String url);
 
-    @EntityGraph(attributePaths = {"members","managers"})
     Meeting findMeetingWithManagersAndMembersById(Long id);
 
-    Meeting findMeetingById(Long id);
-
-    List<Meeting> findFirst9ByPublishedAndClosedOrderByPublishTimeDesc(boolean b, boolean b1);
+    List<Meeting> findFirst9ByPublishedAndClosedOrderByPublishTimeDesc(boolean published, boolean closed);
 }
 

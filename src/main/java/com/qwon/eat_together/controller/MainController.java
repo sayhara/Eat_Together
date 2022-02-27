@@ -24,9 +24,7 @@ public class MainController {
     private final AlarmRepository alarmRepository;
 
     @GetMapping("/")
-    public String home(@AuthUser Account account, Model model,
-                       @PageableDefault(size = 9, sort = "publishTime", direction = Sort.Direction.ASC)
-                               Pageable pageable){
+    public String home(@AuthUser Account account, Model model){
 
         if(account!=null){ // anonymousUser 라면 null
             model.addAttribute(account);

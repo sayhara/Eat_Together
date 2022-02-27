@@ -1,7 +1,6 @@
 package com.qwon.eat_together.config;
 
 import com.qwon.eat_together.service.AccountService;
-import com.qwon.eat_together.social.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AccountService accountService;
     private final DataSource dataSource;
-    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -32,8 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.GET,"/profile/*").permitAll()
                 .anyRequest().authenticated();
 
-        http.oauth2Login()
-                        .loginPage("/login").permitAll(); // // Custom oauth2 Login Page url
+//        http.oauth2Login()
+//                        .loginPage("/login").permitAll(); // // Custom oauth2 Login Page url
 
         http.formLogin()
                         .loginPage("/login").permitAll(); // Custom normal Login Page url
@@ -45,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(accountService) // UserDetailsService
                 .tokenRepository(tokenRepository()); // save token in db
 
-        http.oauth2Login() // Oauth2 로그인 설정 시작점
-                .userInfoEndpoint() // Oauth2 로그인 성공 후 사용자 정보를 가져올 때의 설정들
-                .userService(customOAuth2UserService); // Oauth2 로그인 성공시, 후작업을 진행할 UserService 인터페이스 구현체 등록
+//        http.oauth2Login() // Oauth2 로그인 설정 시작점
+//                .userInfoEndpoint() // Oauth2 로그인 성공 후 사용자 정보를 가져올 때의 설정들
+//                .userService(customOAuth2UserService); // Oauth2 로그인 성공시, 후작업을 진행할 UserService 인터페이스 구현체 등록
 
     }
 
