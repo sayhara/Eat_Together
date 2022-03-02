@@ -29,7 +29,7 @@ public class MeetingController {
     private final MeetingDtoValidator meetingDtoValidator;
     private final MeetingRepository meetingRepository;
 
-    @InitBinder("meetingDto")
+    @InitBinder("meetingDto")// @Valid 검증 전에 실행
     public void meetingDtoInitBinder(WebDataBinder webDataBinder){
         webDataBinder.addValidators(meetingDtoValidator);
     }

@@ -18,11 +18,12 @@ body{
     <div class="row justify-content-center">
         <form class="needs-validation col-sm-10" action="#"
               th:action="@{/meeting}" th:object="${meetingDto}" method="post" novalidate>
+
             <div class="form-group">
-                <label for="url">URL</label>
+                <label class="control-label" for="url">URL</label>
                 <input id="url" type="text" th:field="*{url}" class="form-control"
-                       placeholder="springBoot/meeting" aria-describedby="urlHelp" required min="5" max="50">
-                <small id="pathHelp" class="form-text text-muted">
+                       aria-describedby="urlHelp" min="5" max="50" required>
+                <small id="urlHelp" class="form-text text-muted">
                     모임 주소를 지정할 URL을 5자 이상 50자 이내로 입력하세요.
                 </small>
                 <small class="invalid-feedback">모임 URL을 입력하세요.</small>

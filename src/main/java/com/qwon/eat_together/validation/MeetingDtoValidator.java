@@ -1,5 +1,6 @@
 package com.qwon.eat_together.validation;
 
+import com.qwon.eat_together.domain.Meeting;
 import com.qwon.eat_together.dto.MeetingDto;
 import com.qwon.eat_together.dto.SignUpDto;
 import com.qwon.eat_together.repository.MeetingRepository;
