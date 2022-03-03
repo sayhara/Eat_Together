@@ -1,10 +1,6 @@
 
 ## Eat_Together
 
-<br>
-
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/51408349/156511644-59e5ed80-891a-4712-8f15-ac8056249349.gif)
-
 <br> 
 
 ## 개발 환경
@@ -24,3 +20,8 @@
 
 Spring Boot, Spring Security, JPA, MySQL, Thymeleaf
 
+<br>
+
+## 주요 화면
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/51408349/156511644-59e5ed80-891a-4712-8f15-ac8056249349.gif)
