@@ -96,8 +96,8 @@ class ProfileControllerTest {
     @Test
     public void updatePassword_ok() throws Exception{
 
-        String newPassword="12345678";
-        String newPasswordRepeat="12345678";
+        String newPassword="{noop}"+"12345678";
+        String newPasswordRepeat="{noop}"+"12345678";
 
         mockMvc.perform(post("/settings/password")
                 .param("password",newPassword)
@@ -108,7 +108,7 @@ class ProfileControllerTest {
                 .andExpect(flash().attributeExists("message"));
 
         Account gyuwon = accountRepository.findByUsername("gyuwon");
-        assertTrue(passwordEncoder.matches(newPassword,gyuwon.getPassword()));
+        assertTrue(passwordEncoder.matches("12345678",gyuwon.getPassword()));
 
     }
 
@@ -117,8 +117,8 @@ class ProfileControllerTest {
     @Test
     public void updatePassword_error() throws Exception{
 
-        String newPassword="12345678";
-        String newPasswordRepeat="87654321";
+        String newPassword="{noop}"+"12345678";
+        String newPasswordRepeat="{noop}"+"87654321";
 
         mockMvc.perform(post("/settings/password")
                 .param("password",newPassword)

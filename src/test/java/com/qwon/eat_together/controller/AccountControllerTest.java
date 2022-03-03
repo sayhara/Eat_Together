@@ -49,7 +49,7 @@ class AccountControllerTest {
     @Test
     void signUp_correct_input() throws Exception{
         mockMvc.perform(post("/sign-up")
-                .param("username","gyuwon")
+                .param("username","impact82")
                 .param("email","email@naver.com")
                 .param("password","12345678")
                 .param("passwordCheck","12345678")
